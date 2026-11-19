@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+
+<html data-theme="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="construa-aios" name="curso"/>
+<title>Construye tu AI OS · INEMA.CLUB PRO</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;family=Inter:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/aula.css" rel="stylesheet"/>
+<script>(function(){try{var m=document.querySelector('meta[name=curso]');var CK=(m&&m.content)||'v5:curso';var s=JSON.parse(localStorage.getItem(CK));if(s&&s.prefs&&s.prefs.theme)document.documentElement.setAttribute('data-theme',s.prefs.theme);}catch(e){}})();</script>
+<!--
+  PROTOCOLO DE DESCOBERTA (formato-curso-v5, Passo 0 — respondido pelo usuário em 2026-07-13):
+  - Público específico: profissionais 40+, leigos em tecnologia, que já usam IA de chat (ChatGPT/Claude)
+    e querem montar um assistente pessoal permanente — um "AI OS" próprio.
+  - Profissões-alvo (≥2): advogada · contador.
+  - Familiaridade com tecnologia: baixa — usa e-mail, WhatsApp e planilha; nunca abriu um terminal.
+  - Resultado prático esperado: sair com o próprio AI OS funcionando no básico — assistente que lembra
+    (dossiê de apresentação), conectado a ao menos 1 ferramenta, com 1 receita nomeada, 1 rotina definida
+    e um painel diário.
+  - Tempo por sessão: ~20 minutos por aula.
+  Decisão de produção: nenhuma prática em modo "codigo"; zero .termdemo (não há comando real de terminal
+  em nenhum step — práticas em prompt/tarefa). Personagens-fio dos exemplos: a advogada Renata e o
+  contador Túlio (situações originais deste curso).
+-->
+<style>
+  .view{display:none}.view.active{display:block}
+  .lnav{max-width:1160px;margin:0 auto 5vh;padding:0 clamp(24px,5vw,60px);display:flex;justify-content:space-between;gap:12px}
+  .lnav a{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line2);border-radius:12px;padding:12px 16px}
+  .lnav a:hover{border-color:var(--accent);color:var(--ink)}
+  #v-trilha .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(24px,5vw,60px)}
+  #v-trilha .t-hero{position:relative;overflow:hidden;padding:20vh 0 8vh;border-bottom:1px solid var(--line)}
+  #v-trilha h1{font-family:var(--serif);font-weight:500;font-size:clamp(40px,6.4vw,72px);line-height:1;letter-spacing:-.025em;margin:0 0 22px}
+  #v-trilha h1 em{font-style:italic;color:var(--accent)}
+  #v-trilha .lead{font-family:var(--serif);font-size:clamp(19px,2.1vw,24px);line-height:1.5;color:var(--ink-soft);max-width:46ch;margin:0 0 30px}
+  #v-trilha section{padding:8vh 0}
+  #v-trilha .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+  #v-trilha h2{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(26px,3.6vw,38px);margin:0 0 28px}
+  #v-trilha .aulas{display:grid;gap:14px}
+  #v-trilha .au{display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;text-decoration:none;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 24px}
+  #v-trilha .au .num{font-family:var(--serif);font-size:30px;color:var(--accent);text-align:center}
+  #v-trilha .au h3{font-family:var(--serif);font-weight:500;font-size:21px;margin:0 0 5px}
+  #v-trilha .au p{margin:0;color:var(--muted);font-size:14.5px}
+  #v-trilha .au .meta{font-family:var(--mono);font-size:11px;color:var(--accent);white-space:nowrap;text-align:right}
+  #v-trilha .au .prog{position:static;margin-top:10px;height:5px;border-radius:99px;background:var(--line);overflow:hidden;max-width:220px;width:auto}
+  #v-trilha .au .prog i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+  #v-trilha footer{max-width:1080px;margin:0 auto;padding:6vh clamp(24px,5vw,60px) 12vh;color:var(--faint);text-align:center;font-family:var(--serif);font-style:italic;border-top:1px solid var(--line)}
+</style>
+<link href="https://inematds.github.io/builaios/curso.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/builaios/en/curso.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/builaios/es/curso.html" hreflang="es" rel="alternate"/></head>
+<body><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../curso.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../en/curso.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="curso.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<div class="bar"><div class="bar-inner">
+<span class="brand"><a class="mark" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a><a class="pro" href="https://inema.pro" rel="noopener" target="_blank">PRO</a><a class="course" href="index.html">Construye tu AI OS</a></span>
+<a class="back" href="#trilha" style="display:none">← ruta</a>
+<button class="pill" id="pill" style="display:none">0 leído</button>
+<button id="revbtn">revisar <span id="revn">0</span></button>
+<button id="exbtn">ejercicios</button>
+<button id="jorbtn">trayectoria</button>
+<button aria-label="Cómo funciona" id="helpbtn">?</button>
+<button aria-label="Preferencias de lectura" id="prefsbtn">Aa</button>
+<button id="themebtn">tema: oscuro</button>
+</div></div>
+<!-- ===== TRILHA ===== -->
+<section class="view" id="v-trilha">
+<header class="t-hero"><div class="wrap">
+<p class="kicker">Ruta única · 9 lecciones</p>
+<h1>Construye tu <em>AI OS</em></h1>
+<p class="lead">Crea, en español y sin programar, un asistente de IA que te recuerde, acceda a tus herramientas y trabaje en un horario establecido: pieza por pieza, a tu ritmo.</p>
+</div></header>
+<section><div class="wrap">
+<div class="statcards"></div>
+<p class="eyebrow">Lecciones</p>
+<h2>Del chat que olvida al sistema que trabaja</h2>
+<div class="aulas">
+<a class="au on" data-aula="1" href="#aula-1">
+<div class="num">1</div>
+<div><h3>El asistente que no olvida</h3><p>Termina identificando, con una prueba en tu propio chat, qué le falta para trabajar por ti y nombrando lo que añade un AI OS.</p><div class="prog"><i></i></div></div>
+<div class="meta">18 min · abrir →</div>
+</a>
+<a class="au on" data-aula="2" href="#aula-2">
+<div class="num">2</div>
+<div><h3>Las tres piezas: Modelo, Memoria, Manos</h3><p>Termina aprendiendo a diagnosticar cualquier asistente: cuál de las tres piezas falta y qué síntoma causa esa ausencia.</p><div class="prog"><i></i></div></div>
+<div class="meta">19 min · abrir →</div>
+</a>
+<a class="au on" data-aula="3" href="#aula-3">
+<div class="num">3</div>
+<div><h3>El método de las cuatro C</h3><p>Termina con una tarea repetitiva de tu trabajo reescrita con las cuatro C, y la prueba, lado a lado, de que la respuesta mejora.</p><div class="prog"><i></i></div></div>
+<div class="meta">20 min · abrir →</div>
+</a>
+<a class="au on" data-aula="4" href="#aula-4">
+<div class="num">4</div>
+<div><h3>Onboarding: preséntate una sola vez</h3><p>Termina con el dossier de presentación de tu asistente escrito y probado: quién eres, qué haces y cómo quieres las cosas.</p><div class="prog"><i></i></div></div>
+<div class="meta">17 min · abrir →</div>
+</a>
+<a class="au on" data-aula="5" href="#aula-5">
+<div class="num">5</div>
+<div><h3>Conecta tus herramientas</h3><p>Termina con una herramienta que ya usas conectada al asistente, con límites que tú mismo elegiste.</p><div class="prog"><i></i></div></div>
+<div class="meta">18 min · abrir →</div>
+</a>
+<a class="au on" data-aula="6" href="#aula-6">
+<div class="num">6</div>
+<div><h3>Recetas: capacidades con nombre</h3><p>Termina con tu primera receta con nombre, probada y guardada: un acierto que nunca más se pierde en el historial.</p><div class="prog"><i></i></div></div>
+<div class="meta">19 min · abrir →</div>
+</a>
+<a class="au on" data-aula="7" href="#aula-7">
+<div class="num">7</div>
+<div><h3>Rutinas: trabajo sin ti</h3><p>Termina con la orden de trabajo para la primera tarea que el asistente ejecutará por su cuenta, a una hora programada.</p><div class="prog"><i></i></div></div>
+<div class="meta">18 min · abrir →</div>
+</a>
+<a class="au on" data-aula="8" href="#aula-8">
+<div class="num">8</div>
+<div><h3>Wiki y panel diario</h3><p>Termina con la carpeta de conocimiento del asistente iniciada y el panel de una página que entrega cada mañana.</p><div class="prog"><i></i></div></div>
+<div class="meta">18 min · abrir →</div>
+</a>
+<a class="au on" data-aula="9" href="#aula-9">
+<div class="num">9</div>
+<div><h3>Tu plan de 30 días</h3><p>Termina con el plan del próximo mes escrito y guardado: un cambio por semana, sin sobrecargar el sistema.</p><div class="prog"><i></i></div></div>
+<div class="meta">15 min · abrir →</div>
+</a>
+</div>
+</div></section>
+<footer><div class="wrap">Construye tu AI OS · INEMA.CLUB PRO</div></footer>
+</section>
+<!-- ===== AULA 1 ===== -->
+<section class="view" data-aula="1" data-tempo="18min" id="v-aula-1">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 1</p>
+<h1>El asistente que<br/><em>no lo olvides</em></h1>
+<p class="promise">Al terminar esta lección podrás mostrar, con una prueba hecha en tu propio chat de IA, qué le falta para trabajar por ti — y nombrar las piezas que agrega un AI OS.</p>
+<p class="why">Ya usas IA y te ayuda, pero cada conversación empieza desde cero. Lo que explicaste ayer ya no existe hoy, y el costo de repetir el contexto corre por tu cuenta, todos los días. Esta clase muestra por qué pasa y qué cambia cuando el asistente tiene un hogar.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<rect height="150" rx="8" stroke="var(--line2)" stroke-width="2" width="180" x="60" y="38"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="60" x2="240" y1="70" y2="70"></line>
+<circle cx="78" cy="54" r="4" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="92" y="58">cuaderno de ayer</text>
+<line opacity=".85" stroke="var(--ink-soft)" stroke-width="2" x1="80" x2="216" y1="94" y2="94"></line>
+<line opacity=".55" stroke="var(--ink-soft)" stroke-width="2" x1="80" x2="200" y1="116" y2="116"></line>
+<line opacity=".3" stroke="var(--ink-soft)" stroke-width="2" x1="80" x2="188" y1="138" y2="138"></line>
+<line opacity=".12" stroke="var(--ink-soft)" stroke-width="2" x1="80" x2="170" y1="160" y2="160"></line>
+<rect height="26" rx="6" stroke="var(--warm)" stroke-width="2" transform="rotate(-18 202 159)" width="52" x="176" y="146"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="60" y="216">el borrador pasa cada noche</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> Cada mañana, todo de nuevo</h2>
+<p>Piensa en el chat de IA que usas hoy como un profesional brillante que trabaja bien, pero cuya memoria dura un día. Cada conversación nueva empieza sin antecedentes: no sabe quién eres, qué acordaron ni cómo te gustan las cosas.</p>
+<p>La abogada Renata siente esto todos los lunes. Pide un resumen del estado de un proceso para enviárselo a una clienta y tiene que explicar de nuevo que la clienta no tiene conocimientos legales, que el texto debe caber en media página y que el tono del estudio es directo, sin jerga legal. El martes, la explicación se había evaporado — y ella vuelve a escribirlo todo.</p>
+<p>Fíjate en el detalle: la IA no se equivocó por falta de capacidad. Se equivocó por falta de contexto, y hoy quien carga con el contexto eres tú.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Un AI OS es el asistente con casa propia</h2>
+<p>Hay un nombre para la solución: <span class="gterm" data-def="Sigla em inglês para 'sistema operacional de IA': o conjunto formado por um assistente de IA + a memória dele + o que ele pode alcançar + o que ele faz sozinho em horário marcado." tabindex="0">AI OS</span> — un sistema operativo de IA. El nombre parece técnico, pero la idea es doméstica: en vez de un empleado de mostrador que se olvida de ti, un asistente con escritorio, cuaderno y llaves dentro de tu oficina.</p>
+<p>Un AI OS tiene cuatro partes, y vas a montar cada una en este curso: el <b>asistente</b> (el chat que ya usas), la <b>memoria</b> (lo que guarda sobre ti), el <b>alcance</b> (las herramientas tuyas que puede ver) y las <b>rutinas</b> (lo que hace por su cuenta, en un horario programado).</p>
+<p>El contador Túlio no cambió de aplicación para tener el suyo: organizó estas cuatro partes alrededor del chat que ya usaba. AI OS no es un producto que se compra; es una forma de armarlo.</p>
+<div class="qbefore-after">
+<div class="qba-col qba-before"><p class="qba-lbl">antes</p><p class="qba-txt">Renata dedica unos 20 minutos al día a volver a explicar cómo es la oficina, el tono y el formato, y aun así revisa respuestas genéricas.</p></div>
+<div class="qba-col qba-depois"><p class="qba-lbl">después</p><p class="qba-txt">El asistente abre la conversación sabiendo ya todo esto; ella lo pide en una línea y lo revisa de una pasada.</p></div>
+<p class="qba-saldo"><b>Saldo:</b> cerca de 1h40 por semana recuperadas, solo por el contexto que dejaste de volver a escribir.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Lo haces con palabras, no con programación</h2>
+<p>Aquí está la buena noticia de esta lección: el material para construir un AI OS es el portugués. Las piezas que vas a crear son textos — una presentación tuya, preferencias por escrito, recetas de tareas — del mismo tipo que escribirías para capacitar a una persona nueva del equipo.</p>
+<p>El contador Túlio empezó con cinco líneas: cómo le gusta que se redacte un recordatorio de plazo, para qué tipo de cliente y con cuánta anticipación. Sin lenguaje informático ni pantallas ocultas: solo instrucciones claras, guardadas en el lugar correcto.</p>
+<p>Si ya capacitaste a un pasante, una secretaria o un nuevo socio, ya tienes la habilidad central de este curso.</p>
+<div class="quiz" data-answer="b">
+<p class="qk">Ponte a prueba</p><p class="q">¿Qué convierte el chat común en el comienzo de un AI OS?</p>
+<button class="opt" data-k="a">Una computadora más potente en casa</button>
+<button class="opt" data-fb="É isso: a diferença não está no motor, e sim no contexto que fica guardado e volta sozinho em toda conversa." data-k="b">Tu contexto, guardado y disponible automáticamente</button>
+<button class="opt" data-k="c">Contratar el plan más caro de la aplicación</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> Qué cambia en tu semana</h2>
+<p>La diferencia de un AI OS no aparece en una demostración — aparece un martes cualquiera. La abogada Renata empieza el día con un resumen listo de lo que vence durante la semana. El texto para la clienta sin conocimientos legales sale con el tono del estudio al primer intento. Alguien que no duerme vigila el plazo que es fácil olvidar.</p>
+<p>Nada de esto es magia nueva: es el mismo chat de siempre, rodeado de memoria, alcance y rutina. Cada clase de este curso activa una de estas piezas, y sentirás el beneficio con cada una, sin esperar hasta el final.</p>
+<div class="qanchor"><p>Un chat responde preguntas. Un AI OS se encarga de tareas.</p></div>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="prompt" data-practice="p1">
+<p class="pk">Practica ahora <span class="pcount">0/3 hecho</span></p>
+<h3 class="ph">La prueba de la amnesia</h3>
+<p class="pgoal">Mide, en tu propio chat, el punto de partida de tu sistema: qué sabe ya de ti y qué le falta — ~10 min.</p>
+<p class="psafe">Es una conversación de lectura: no se modifica, elimina ni contrata nada. Si la respuesta sale extraña o vacía, perfecto: es exactamente lo que estamos midiendo.</p>
+<div class="pcodewrap"><button class="pcopy" type="button">copiar</button><pre class="pcode">Sin que te cuente nada ahora: ¿qué sabes sobre mí,
+mi trabajo y mis preferencias?
+Enumera lo que usarías para ayudarme mañana temprano.
+Si no lo sabes, di claramente qué falta.</pre></div>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Abre el chat de IA que ya usas y pega la solicitud de arriba. Lo que debes ver: una respuesta genérica o casi vacía — es normal al comenzar.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Guarda la respuesta en un documento con la fecha de hoy. Ponle el nombre de "retrato del antes".</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Escribe abajo, con tus propias palabras, dos cosas que el asistente debería saber sin que se las cuentes. Está listo cuando las dos frases estén escritas.</label></li>
+</ol>
+<p class="pdone">Acabas de medir con evidencia el punto de partida de tu sistema. Cada lección de aquí en adelante acorta un tramo de esa distancia.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Duas conversas, dois dias: nada atravessa de uma para a outra — o contexto de segunda morre antes de terça." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="96" rx="8" stroke="var(--accent)" stroke-width="1.5" width="82" x="16" y="34"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="26" y="26">lunes</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="28" x2="86" y1="56" y2="56"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="28" x2="78" y1="74" y2="74"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="28" x2="84" y1="92" y2="92"></line>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="26" y="120">contexto: lleno</text>
+<rect height="96" rx="8" stroke="var(--line2)" stroke-dasharray="5 4" stroke-width="1.5" width="82" x="122" y="34"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="132" y="26">martes</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="132" y="120">contexto: cero</text>
+<line stroke="var(--warm)" stroke-dasharray="3 5" stroke-width="1.5" x1="98" x2="122" y1="82" y2="82"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="104" x2="116" y1="72" y2="92"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="116" x2="104" y1="72" y2="92"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="166">lo que explicaste no se conserva;</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="182">quien repite el contexto eres tú</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; As quatro partes de um AI OS: o assistente no centro, cercado por memória, alcance e rotinas — as três coisas que o chat avulso não tem." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="40" rx="8" stroke="var(--accent)" stroke-width="1.5" width="60" x="80" y="76"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="88" y="100">asistente</text>
+<rect height="26" rx="6" stroke="var(--line2)" stroke-width="1.5" width="76" x="24" y="18"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="34" y="35">memoria</text>
+<rect height="26" rx="6" stroke="var(--line2)" stroke-width="1.5" width="76" x="126" y="18"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="136" y="35">alcance</text>
+<rect height="26" rx="6" stroke="var(--line2)" stroke-width="1.5" width="76" x="72" y="152"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="84" y="169">rutinas</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="72" x2="94" y1="44" y2="76"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="152" x2="128" y1="44" y2="76"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="110" x2="110" y1="116" y2="152"></line>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O caminho da montagem: instruções em português entram, ficam guardadas e mudam o comportamento de todas as conversas seguintes." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="92" rx="6" stroke="var(--line2)" stroke-width="1.5" width="72" x="20" y="40"></rect>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="32" x2="80" y1="60" y2="60"></line>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="32" x2="74" y1="76" y2="76"></line>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="32" x2="78" y1="92" y2="92"></line>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="32" x2="66" y1="108" y2="108"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="30">5 líneas en portugués</text>
+<path d="M92 86 h36" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M122 80 l8 6 -8 6" stroke="var(--accent)" stroke-width="1.5"></path>
+<rect height="56" rx="8" stroke="var(--accent)" stroke-width="1.5" width="68" x="132" y="58"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="142" y="82">guardado</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="142" y="98">y recordado</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="166">ningún lenguaje de programación;</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="182">el material es una instrucción clara</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A semana com o sistema de pé: entregas chegando prontas em três pontos do dia — sem ninguém pedir de novo." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--line2)" stroke-width="1.5" x1="20" x2="200" y1="100" y2="100"></line>
+<circle cx="52" cy="100" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="110" cy="100" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="168" cy="100" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="30" y="80">7h panel</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="86" y="132">texto con el tono adecuado</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="142" y="80">plazo supervisado</text>
+<rect height="22" rx="4" stroke="var(--warm)" stroke-width="1.5" width="38" x="34" y="44"></rect>
+<line stroke="var(--warm)" stroke-dasharray="3 3" stroke-width="1.5" x1="52" x2="52" y1="66" y2="95"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="176">la diferencia se nota un martes cualquiera</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>El chat que usas hoy olvida: cada conversación empieza sin antecedentes y volver a explicar se convierte en tarea tuya.</li>
+<li>AI OS es un montaje, no un producto: asistente + memoria + alcance + rutinas, organizados alrededor del chat que ya tienes.</li>
+<li>El material de construcción es el portugués: instrucciones del tipo que le darías a una persona nueva del equipo.</li>
+<li>El beneficio se nota en una semana normal: menos repetición, entregas con tu tono, plazos vigilados.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de registrar el punto de partida de tu sistema con evidencia de tu propio chat.</p>
+<p class="na-action">En los próximos 15 minutos: vuelve a leer el retrato del antes y subraya la frase más genérica que escribió la IA: será tu referencia para medir el progreso al final del curso.</p>
+<p class="na-hook">En la próxima clase tendrás el mapa de las tres piezas —Modelo, Memoria y Manos— y descubrirás cuál explica cada debilidad que apareció en tu prueba.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#trilha">← ruta</a><a href="#aula-2">clase 2 →</a></nav>
+<footer>Lección 1 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-1" type="application/json">
+[
+  {"front":"Por que a mesma pergunta rende resposta melhor num AI OS do que num chat avulso?","back":"Porque o pedido chega acompanhado do que ficou guardado: o assistente parte do seu contexto em vez de partir do zero."},
+  {"front":"Chat comum e AI OS: quem carrega o contexto em cada um?","back":"No chat comum, você — e ele evapora a cada conversa. No AI OS, o sistema — e ele volta sozinho toda vez."},
+  {"front":"Uma colega diz que assinar o plano pago do aplicativo já resolve. O que você responde?","back":"Que plano pago melhora o motor, mas não cria memória, alcance nem rotina — o sistema se monta, não se assina."},
+  {"front":"O texto saiu no tom errado pela terceira vez na semana. Qual parte do sistema esse sintoma acusa?","back":"A memória: a preferência de tom não está guardada em lugar nenhum, então toda conversa recomeça sem ela."}
+]
+</script>
+<!--
+COMPLETUDE aula-1 | tipo=FUNDAMENTO | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="18min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Renata s1, Renata s2, Túlio s3, Renata s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="prompt"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~10 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-1"> presente (4 cartões: pergunta, contraste, decisão, diagnóstico)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/diagnóstico; operação difere do recap)
+  [OK] teste-se-FUND      tipo=FUNDAMENTO: presente (1 quiz, data-fb na correta)
+-->
+</section>
+<!-- ===== AULA 2 ===== -->
+<section class="view" data-aula="2" data-tempo="19min" id="v-aula-2">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 2</p>
+<h1>Las tres piezas:<br/>Modelo, Memoria, <em>Manos</em></h1>
+<p class="promise">Al terminar esta lección podrás examinar el asistente que usas hoy y decir cuál de las tres piezas falta — Modelo, Memoria o Manos — señalando el síntoma que causa cada vacío.</p>
+<p class="why">Cuando la IA decepciona, la reacción común es culpar a su inteligencia o a tu pregunta. Casi siempre el problema es otro: todavía falta una pieza completa del sistema. Saber nombrar las tres evita pasar meses ajustando la pieza equivocada.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<line stroke="var(--line2)" stroke-width="2" x1="30" x2="270" y1="186" y2="186"></line>
+<rect height="52" rx="4" stroke="var(--accent)" stroke-width="2" width="64" x="46" y="118"></rect>
+<path d="M46 132 h64 M60 118 v52" opacity=".6" stroke="var(--accent)" stroke-width="1.2"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="50" y="206">el libro</text>
+<rect height="44" rx="4" stroke="var(--warm)" stroke-width="2" width="52" x="128" y="126"></rect>
+<line stroke="var(--warm)" stroke-width="1.2" x1="136" x2="170" y1="140" y2="140"></line>
+<line stroke="var(--warm)" stroke-width="1.2" x1="136" x2="164" y1="152" y2="152"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="122" y="206">el cuaderno</text>
+<circle cx="228" cy="136" r="12" stroke="var(--accent)" stroke-width="2"></circle>
+<path d="M228 148 v22 M228 156 l-12 8 M228 156 l12 8" stroke="var(--accent)" stroke-width="2"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="200" y="206">el llavero</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="52" y="46">tres objetos en la mesa de quien se hace cargo</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="52" y="62">un trabajo nuevo</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> El Modelo piensa, pero no te conoce</h2>
+<p>La primera pieza es la <span class="gterm" data-def="A parte da IA que lê, entende e escreve — o motor de raciocínio por trás de qualquer chat. Você não constrói o modelo; você o usa pronto." tabindex="0">modelo</span>: el motor que lee, razona y escribe. Es la pieza que recibes lista al abrir cualquier chat de IA — y, para la mayoría de los usos, ya es excelente.</p>
+<p>Lo que el modelo no hace es adivinar. El contador Túlio pide "escribe un recordatorio de plazo" y recibe un texto impecable, para un cliente que no existe, sobre un impuesto genérico, con un tono que no es el suyo. El motor funcionó; faltó todo lo demás.</p>
+<p>Recuerda esta distinción: la calidad de la escritura depende del modelo; la precisión sobre tu realidad depende de las otras dos piezas.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> La memoria guarda lo acordado</h2>
+<p>La segunda pieza es la memoria: el cuaderno del asistente. Contiene tres tipos de anotaciones — datos sobre ti y tu trabajo, preferencias de formato y tono, y decisiones ya tomadas («el cliente X prefiere correo», «nunca uses jerga legal con personas sin conocimientos legales»).</p>
+<p>Con el cuaderno completo, la misma solicitud de una línea vuelve correcta, porque el resto ya lo sabía. Es la pieza más barata del sistema —solo cuesta el trabajo de escribir— y la que más cambia el resultado en el día a día.</p>
+<div class="qbefore-after">
+<div class="qba-col qba-before"><p class="qba-lbl">antes</p><p class="qba-txt">El recordatorio de plazo de Túlio sale genérico; él reescribe la solicitud cuatro veces hasta que el texto queda listo para enviar.</p></div>
+<div class="qba-col qba-depois"><p class="qba-lbl">después</p><p class="qba-txt">Con el nombre del cliente, la anticipación y el tono guardados en la memoria, el recordatorio sale listo en la primera versión.</p></div>
+<p class="qba-saldo"><b>Saldo:</b> de 4 versiones a 1 — unos 15 minutos ahorrados por cliente, cada vez que apremia el plazo.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Las Manos acceden a tus cosas</h2>
+<p>La tercera pieza son las manos: lo que el asistente puede alcanzar fuera de la conversación — tu agenda, tus documentos, tu correo. Sin manos, solo habla del mundo; con manos, consulta el mundo antes de responder.</p>
+<p>La abogada Renata dejó que el asistente viera su agenda. La diferencia fue inmediata: en vez de sugerir «¿qué tal el jueves a las 10h?» al azar, propone horarios que existen de verdad y esquiva la audiencia que ella había olvidado mencionar.</p>
+<p>Manos tiene dos niveles, y la distinción importa: <b>ver</b> (leer la agenda, leer un documento) y <b>cambiar</b> (marcar, enviar, modificar). Siempre empezarás por ver; la clase 5 se ocupa de eso con calma.</p>
+<div class="quiz" data-answer="b">
+<p class="qk">Ponte a prueba</p><p class="q">Tu asistente escribe bien, pero inventa tus horarios libres. ¿Qué falta?</p>
+<button class="opt" data-k="a">Un modelo más inteligente</button>
+<button class="opt" data-fb="Exato: texto bom com dado inventado é sintoma de falta de mãos — ele não enxerga sua agenda real, então preenche o buraco com um palpite." data-k="b">Manos — acceso a la agenda real</button>
+<button class="opt" data-k="c">Pedir con más cortesía y detalle</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> Cada síntoma señala una pieza</h2>
+<p>Con las tres piezas identificadas, los defectos de tu asistente se convierten en un diagnóstico en vez de una frustración. ¿Respuesta genérica, que serviría para cualquiera? Falta memoria. ¿Dato inventado con seguridad —un horario, un valor, un artículo de ley? Falta una mano que lo verifique en la fuente. ¿Texto confuso incluso con el contexto completo y el acceso adecuado? Entonces sí es el modelo: el caso más raro de los tres.</p>
+<p>Así fue como la abogada Renata dejó de reescribir solicitudes en vano: antes de cambiar la pregunta, se pregunta qué pieza está señalando ese error. La mayoría de las veces, la respuesta no es "preguntar mejor", sino crear la pieza que falta.</p>
+<div class="qanchor"><p>El Modelo piensa. La Memoria recuerda. Las Manos llegan.</p></div>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="tarefa" data-practice="p2">
+<p class="pk">Practica ahora <span class="pcount">0/4 hecho</span></p>
+<h3 class="ph">La inspección de las tres piezas</h3>
+<p class="pgoal">Termina con la inspección de tu asistente actual completa: qué pieza existe, cuál falta y un ejemplo de cada una — ~10 min.</p>
+<p class="psafe">Solo observas y tomas nota; no se hace ningún ajuste en la aplicación. Aquí no hay respuestas incorrectas: es un retrato, y un retrato incompleto también es información.</p>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> En una hoja o documento, escribe tres líneas: Modelo · Memoria · Manos.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Modelo: pega en el chat cualquier solicitud de tu trabajo y evalúa solo la escritura (¿clara? ¿bien organizada?). Anota sí o no en la primera línea.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Memoria: pregunta "¿qué recuerdas de mí y de mi trabajo?". Anota en la segunda línea lo que responda, incluso si no responde nada.</label></li>
+<li><label><input data-ptask="4" type="checkbox"/> Manos: pregunta "¿puedes ver mi agenda o mis documentos?". Anótalo en la tercera línea. Está listo cuando las tres líneas tienen un sí/no con un ejemplo de lo que viste.</label></li>
+</ol>
+<p class="pdone">Acabas de hacer la revisión que la mayoría de los usuarios nunca hace. Ahora sabes qué pieza atacar primero, y el curso sigue precisamente por ahí.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O motor isolado: pedido entra, texto bem escrito sai — mas os campos sobre a SUA realidade saem em branco." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<path d="M14 96 h34" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M42 90 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="10" y="82">solicitud</text>
+<rect height="64" rx="10" stroke="var(--accent)" stroke-width="1.5" width="72" x="56" y="64"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="72" y="100">modelo</text>
+<path d="M128 96 h34" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M156 90 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="76" rx="6" stroke="var(--line2)" stroke-width="1.5" width="42" x="168" y="58"></rect>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="176" x2="202" y1="76" y2="76"></line>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="176" x2="198" y1="92" y2="92"></line>
+<line stroke="var(--warm)" stroke-dasharray="3 3" stroke-width="1.5" x1="176" x2="202" y1="108" y2="108"></line>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="120" y="160">¿cliente? ¿plazo? ¿tono?</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="10" y="184">escribe bien; no adivina nada</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O caderno com três abas — fatos, preferências, decisões — alimentando o motor antes de cada resposta." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="120" rx="6" stroke="var(--warm)" stroke-width="1.5" width="92" x="16" y="36"></rect>
+<rect height="22" rx="3" stroke="var(--warm)" stroke-width="1.5" width="14" x="108" y="46"></rect>
+<rect height="22" rx="3" stroke="var(--warm)" stroke-width="1.5" width="14" x="108" y="78"></rect>
+<rect height="22" rx="3" stroke="var(--warm)" stroke-width="1.5" width="14" x="108" y="110"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="62">hechos</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="94">preferencias</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="126">decisiones</text>
+<path d="M126 96 h28" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M148 90 l8 6 -8 6" stroke="var(--accent)" stroke-width="1.5"></path>
+<rect height="52" rx="8" stroke="var(--accent)" stroke-width="1.5" width="48" x="160" y="70"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="168" y="100">motor</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="184">el cuaderno entra antes de la solicitud</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Dois níveis de acesso: a seta 'ver' só entra; a seta 'mexer' volta e altera. Você começa sempre pelo ver." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="52" rx="8" stroke="var(--accent)" stroke-width="1.5" width="62" x="20" y="70"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="30" y="100">asistente</text>
+<rect height="34" rx="6" stroke="var(--line2)" stroke-width="1.5" width="58" x="146" y="40"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="156" y="61">agenda</text>
+<rect height="34" rx="6" stroke="var(--line2)" stroke-width="1.5" width="58" x="146" y="122"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="156" y="143">correo electrónico</text>
+<path d="M146 54 L86 82" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M94 76 l-8 6 10 2" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="96" y="52">ver</text>
+<path d="M82 110 L146 138" stroke="var(--warm)" stroke-dasharray="4 4" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="92" y="146">cambiar: después</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="184">ver primero; modificar solo con criterio</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A tabela de diagnóstico: cada sintoma do dia a dia apontando a peça que falta — antes de culpar a pergunta." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="40">respuesta genérica</text>
+<path d="M148 36 h28" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M170 30 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="182" y="40">M2</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="92">dato inventado</text>
+<path d="M148 88 h28" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M170 82 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="182" y="92">M3</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="144">texto confuso con todo en orden</text>
+<path d="M148 140 h28" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M170 134 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="182" y="144">M1</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="180">M1 modelo · M2 memoria · M3 manos</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>Modelo, Memoria y Manos hacen trabajos distintos — pensar, recordar y acceder — y una pieza no compensa la ausencia de otra.</li>
+<li>El modelo viene listo y rara vez es el problema; lo que suele faltar son las dos piezas que tú mismo armas.</li>
+<li>El síntoma es una pista: lo genérico apunta a la memoria; lo inventado, a las manos.</li>
+<li>Empezar por observar (y no por modificar) mantiene el acceso seguro mientras el sistema es nuevo.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de cambiar la frustración por un diagnóstico: ahora tu asistente tiene una revisión aprobada por ti.</p>
+<p class="na-action">En los próximos 15 minutos: toma el retrato del antes (clase 1) y escribe junto a cada debilidad a cuál M apunta. Ese es tu mapa de trabajo.</p>
+<p class="na-hook">En la próxima clase llega el método de las cuatro C: la guía para pedir, guardar y repetir el trabajo que convierte estas piezas en resultados en el día a día.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-1">← clase 1</a><a href="#aula-3">clase 3 →</a></nav>
+<footer>Lección 2 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-2" type="application/json">
+[
+  {"front":"O assistente propôs reunião num horário em que você estava em audiência. Qual peça falhou e por quê?","back":"As Mãos: sem enxergar a agenda de verdade, ele preencheu o vazio com um palpite dito com confiança."},
+  {"front":"Qual a diferença entre detalhar mais o pedido e ter Memória?","back":"O detalhe vale só naquela conversa e morre com ela; a Memória fica guardada e volta em todas as conversas seguintes."},
+  {"front":"Decisão: com orçamento curto, vale pagar um modelo melhor antes de montar memória e acesso?","back":"Quase nunca. Trocar o motor rende pouco perto de dar contexto e alcance ao motor que você já tem."},
+  {"front":"Sua vistoria deu: Modelo sim, Memória não, Mãos não. Por onde começa o plano?","back":"Pela memória — é a peça mais barata de montar e a que mais muda as respostas; o dossiê da aula 4 faz exatamente isso."},
+  {"front":"Em que situação trocar de modelo é, de fato, a resposta certa?","back":"Quando o texto continua fraco mesmo com contexto completo e acesso funcionando — o mais raro dos três casos."}
+]
+</script>
+<!--
+COMPLETUDE aula-2 | tipo=FUNDAMENTO | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="19min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Túlio s1, Túlio s2, Renata s3, Renata s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="tarefa"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~10 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-2"> presente (5 cartões: diagnóstico, contraste, decisão, aplicação, pergunta)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% em forma de pergunta/decisão; operação difere do recap)
+  [OK] teste-se-FUND      tipo=FUNDAMENTO: presente (1 quiz, data-fb na correta)
+-->
+</section>
+<!-- ===== AULA 3 ===== -->
+<section class="view" data-aula="3" data-tempo="20min" id="v-aula-3">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 3</p>
+<h1>El método de los<br/><em>cuatro C</em></h1>
+<p class="promise">Al terminar esta lección podrás tomar una tarea repetitiva de tu trabajo, reescribirla con las cuatro C — Contexto, Comando, Capacidad, Ciclo — y comparar, lado a lado, cuánto mejora la respuesta.</p>
+<p class="why">Ya sabes qué piezas forman el sistema; falta saber cómo usarlas sin inventarlo todo desde cero con cada pedido. Sin una guía, cada conversación se convierte en una negociación: pides algo, llega torcido y lo corriges. El método de los cuatro Cs reemplaza esa negociación por cuatro preguntas que respondes una sola vez.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<line stroke="var(--line2)" stroke-width="2" x1="34" x2="266" y1="178" y2="178"></line>
+<rect height="56" rx="4" stroke="var(--accent)" stroke-width="2" width="44" x="44" y="122"></rect>
+<rect height="12" rx="3" stroke="var(--accent)" stroke-width="1.5" width="28" x="52" y="110"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="12" x="58" y="152">C1</text>
+<rect height="56" rx="4" stroke="var(--warm)" stroke-width="2" width="44" x="104" y="122"></rect>
+<rect height="12" rx="3" stroke="var(--warm)" stroke-width="1.5" width="28" x="112" y="110"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="12" x="118" y="152">C2</text>
+<rect height="56" rx="4" stroke="var(--accent)" stroke-width="2" width="44" x="164" y="122"></rect>
+<rect height="12" rx="3" stroke="var(--accent)" stroke-width="1.5" width="28" x="172" y="110"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="12" x="178" y="152">C3</text>
+<rect height="56" rx="4" stroke="var(--warm)" stroke-width="2" width="44" x="224" y="122"></rect>
+<rect height="12" rx="3" stroke="var(--warm)" stroke-width="1.5" width="28" x="232" y="110"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="12" x="238" y="152">C4</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="44" y="48">cuatro recipientes medidos sobre la mesa de trabajo:</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="44" y="64">la receta sale igual cada vez</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="44" y="206">contexto · comando · capacidad · ciclo</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> Contexto: lo que necesita saber antes</h2>
+<p>La primera C responde una pregunta sencilla: ¿qué le contarías a un colega competente que acaba de llegar antes de delegarle esta tarea? Quién leerá el resultado, para qué sirve, qué no puede pasar.</p>
+<p>La abogada Renata quiere un resumen del estado de un proceso. El contexto que lo cambia todo cabe en tres líneas: quien lo leerá es una clienta sin conocimientos legales y ansiosa; el objetivo es tranquilizarla sin prometer un resultado; el límite es media página.</p>
+<p>El contexto no es un adorno de la solicitud: es la mitad de ella. Y, a partir de la clase 4, buena parte de tu contexto quedará guardada de forma permanente, en lugar de que tengas que escribirla cada mañana.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Comando: verbo, formato y límite</h2>
+<p>La segunda C es la solicitud en sí, y una buena solicitud tiene tres características: un verbo claro (enumera, resume, compara, redacta un borrador), un formato indicado (tabla, lista, texto de tantas líneas) y un límite (qué dejar fuera, extensión máxima, qué evitar).</p>
+<p>Compara las dos solicitudes del contador Túlio en la época de la declaración de impuestos:</p>
+<div class="qbefore-after">
+<div class="qba-col qba-before"><p class="qba-lbl">antes</p><p class="qba-txt">"¿Me ayudas con los plazos de los clientes?" — y la respuesta es: un texto motivacional sobre organización financiera.</p></div>
+<div class="qba-col qba-depois"><p class="qba-lbl">después</p><p class="qba-txt">"Lista los plazos de julio de los 12 clientes de abajo, en una tabla, del más urgente al más holgado, sin comentarios adicionales."</p></div>
+<p class="qba-saldo"><b>Saldo:</b> de tres idas y vueltas a una respuesta única y aprovechable — el costo fue una frase más larga.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Capacidad: el acierto que se guarda</h2>
+<p>La tercera C mira al día siguiente. Una solicitud que dio resultado — contexto afinado, instrucción pulida — es un pequeño patrimonio. Si se pierde en el historial de la conversación, la semana que viene tendrás que reconstruirla de memoria, y te quedará peor.</p>
+<p>Capacidad es ese acierto con nombre y dirección: la abogada Renata lo llamó «resumen para el cliente» y lo guardó fuera del chat. Cuando vuelve a presentarse la situación, no lo redacta — lo pide por su nombre.</p>
+<p>Por ahora, quédate con el principio; la clase 6 trata por completo sobre cómo escribir y usar esas recetas.</p>
+<div class="quiz" data-answer="c">
+<p class="qk">Ponte a prueba</p><p class="q">Un pedido tuyo funcionó por segunda vez en el mes. ¿Qué indica el método que hagas?</p>
+<button class="opt" data-k="a">Confiar en que la próxima vez te acordarás</button>
+<button class="opt" data-k="b">Empezar desde cero, porque cada caso es diferente</button>
+<button class="opt" data-fb="Isso: acerto repetido é sinal de capacidade — ganha nome, sai do histórico e passa a ser chamado em segundos." data-k="c">Ponerle un nombre y guardarla fuera de la conversación</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> Ciclo: lo que se repite sale de tu cabeza</h2>
+<p>La cuarta C reconoce un patrón: parte de tu trabajo no es un evento, sino algo que va en el calendario. Cada lunes hay una lista que revisar; cada fin de mes, un aviso que enviar. Ciclo es decidir sacar esas repeticiones de tu memoria y fijarlas en un horario.</p>
+<p>El contador Túlio identificó el suyo en un minuto: todos los lunes, a las 7 h, la lista de plazos de la semana, por cliente. Todavía no programó nada —eso se verá en la clase 7—, pero ya sabe exactamente qué va a poner en el reloj.</p>
+<p>Observa cómo encajan las cuatro C: el contexto y el comando mejoran la respuesta de hoy; la capacidad y el ciclo construyen el sistema que trabaja mañana.</p>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="step" data-fig="5" data-kind="fundamento">
+<h2><span class="n">05</span> La escala de diagnóstico</h2>
+<p>Las cuatro C también funcionan al revés: cuando un resultado sale mal, falta una de ellas. La pregunta deja de ser "¿por qué la IA es mala?" y pasa a ser "¿qué C me salté?".</p>
+<p>Un caso real de oficina: el contador Túlio pidió «un texto sobre impuestos para enviarles a los clientes» y recibió un artículo formal de tres páginas. Respiró hondo y aplicó el criterio. Faltaba contexto: quienes lo leerían eran dueños de comercios sin tiempo. También faltaba una instrucción: debía ser un aviso corto, no un artículo. Reescribió dos líneas y obtuvo la respuesta lista. Sin drama, sin empezar de nuevo.</p>
+<div class="qanchor"><p>Primero el contexto. Comando claro. Capacidad guardada. Ciclo en el reloj.</p></div>
+<div class="mobfig" data-mobfig="5"></div>
+<button class="readbtn" data-read="s5">marcar como leído</button>
+</section>
+<section class="practice" data-mode="prompt" data-practice="p3">
+<p class="pk">Practica ahora <span class="pcount">0/3 hecho</span></p>
+<h3 class="ph">Reescribe una solicitud tuya con las cuatro C</h3>
+<p class="pgoal">Comparar, lado a lado, la respuesta a tu solicitud de siempre y la del mismo pedido reescrito con el método — ~12 min.</p>
+<p class="psafe">Son dos conversaciones de prueba: nada queda guardado, alterado ni contratado. Si la segunda respuesta no mejora, casi siempre hay que ajustar el Contexto: agrega una línea sobre quién lo leerá y vuelve a intentarlo.</p>
+<div class="pcodewrap"><button class="pcopy" type="button">copiar</button><pre class="pcode">Contexto: sou &lt;sua profissão&gt; e este pedido é para &lt;quem vai ler ou usar&gt;.
+O que importa aqui: &lt;dois ou três fatos que mudam o resultado&gt;.
+Comando: &lt;verbo + o que fazer&gt;, no formato &lt;tabela / lista / texto de N linhas&gt;,
+com no máximo &lt;limite de tamanho&gt;. Evite &lt;o que não pode aparecer&gt;.
+No fim, me diga: se eu repetir este pedido toda semana,
+que nome curto você daria a ele como receita?</pre></div>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Recupera una solicitud real que le hiciste a la IA este mes y pégala tal como estaba, en una conversación nueva. Guarda la respuesta.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Completa el modelo de arriba con la misma tarea y pégalo en otra conversación nueva. Lo que deberías ver: una respuesta más breve, en el formato solicitado y sin adornos.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Compara las dos: ¿cuál requeriría menos trabajo adicional de tu parte? Anota cuál C marcó la mayor diferencia. Listo cuando hayas escrito la anotación.</label></li>
+</ol>
+<p class="pdone">Acabas de aplicar el método completo a un caso tuyo y viste la diferencia con tus propios ojos, no por una promesa del curso.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O funil do contexto: quem lê, para quê e com que limite entram antes — e estreitam o pedido até ele caber na realidade." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="24" y="28">quién lee · para qué · límites</text>
+<path d="M36 40 L184 40 L134 118 L86 118 Z" stroke="var(--accent)" stroke-width="1.5"></path>
+<line stroke="var(--line2)" stroke-width="1.5" x1="58" x2="162" y1="66" y2="66"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="74" x2="146" y1="92" y2="92"></line>
+<path d="M110 118 v20" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M105 132 l5 8 5 -8" stroke="var(--accent)" stroke-width="1.5"></path>
+<rect height="26" rx="6" stroke="var(--warm)" stroke-width="1.5" width="68" x="76" y="146"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="86" y="163">solicitud correcta</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="24" y="192">el contexto es la mitad del pedido</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A anatomia do comando: verbo, formato e limite marcados na própria frase — as três partes que tiram o chute da resposta." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="92" rx="8" stroke="var(--line2)" stroke-width="1.5" width="188" x="16" y="52"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="11" x="28" y="80">enumera</text>
+<rect height="20" rx="4" stroke="var(--accent)" stroke-width="1.2" width="42" x="24" y="66"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="74" y="80">los plazos de julio</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="11" x="28" y="110">en una tabla</text>
+<rect height="20" rx="4" stroke="var(--warm)" stroke-width="1.2" width="76" x="24" y="96"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="108" y="110">lo urgente primero</text>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="11" x="28" y="136">sin comentarios</text>
+<rect height="20" rx="4" stroke="var(--accent)" stroke-width="1.2" width="116" x="24" y="122"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="176">verbo · formato · límite</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O caminho da capacidade: o pedido lapidado sai do histórico, ganha um cartão com nome e vai para a prateleira de onde se chama." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="76" rx="6" stroke="var(--line2)" stroke-dasharray="4 4" stroke-width="1.5" width="58" x="14" y="40"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="32">historial</text>
+<rect height="22" rx="4" stroke="var(--accent)" stroke-width="1.5" width="38" x="24" y="56"></rect>
+<path d="M72 68 h30" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M96 62 l8 6 -8 6" stroke="var(--accent)" stroke-width="1.5"></path>
+<rect height="44" rx="6" stroke="var(--accent)" stroke-width="1.5" width="96" x="110" y="46"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="120" y="66">resumen para el cliente</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="120" y="82">cuándo · cómo</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="110" x2="206" y1="122" y2="122"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="110" x2="206" y1="148" y2="148"></line>
+<rect height="18" rx="3" stroke="var(--warm)" stroke-width="1.2" width="30" x="118" y="126"></rect>
+<rect height="18" rx="3" stroke="var(--warm)" stroke-width="1.2" width="30" x="154" y="126"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="14" y="182">un acierto se convierte en un patrimonio con nombre</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O ciclo pendurado no relógio: a tarefa repetida gira sozinha e entrega no horário — sem depender de você lembrar." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<circle cx="110" cy="94" r="52" stroke="var(--accent)" stroke-width="1.5"></circle>
+<path d="M158 76 l8 10 -13 2" stroke="var(--accent)" stroke-width="1.5"></path>
+<circle cx="110" cy="94" r="8" stroke="var(--warm)" stroke-width="1.5"></circle>
+<path d="M110 94 L110 76 M110 94 L122 100" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="80" y="30">todos los lunes, 7h</text>
+<path d="M162 118 h30" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M186 112 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="30" rx="5" stroke="var(--line2)" stroke-width="1.5" width="42" x="166" y="140"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="172" y="159">lista</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="14" y="186">calendario, no tu memoria</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A régua reversa: resultado torto entra, os quatro Cs são conferidos um a um, e o que falta aparece marcado." data-fig="5">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="30" rx="6" stroke="var(--warm)" stroke-width="1.5" width="188" x="16" y="24"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="28" y="43">salió torcido: artículo de 3 páginas</text>
+<path d="M110 54 v16" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="34" rx="5" stroke="var(--warm)" stroke-width="1.5" width="40" x="20" y="78"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="30" y="99">C1?</text>
+<rect height="34" rx="5" stroke="var(--warm)" stroke-width="1.5" width="40" x="68" y="78"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="78" y="99">C2?</text>
+<rect height="34" rx="5" stroke="var(--line2)" stroke-width="1.5" width="40" x="116" y="78"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="126" y="99">C3 ok</text>
+<rect height="34" rx="5" stroke="var(--line2)" stroke-width="1.5" width="40" x="164" y="78"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="174" y="99">C4 ok</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="146">faltó: quién lo lee + formato</text>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="16" y="176">dos líneas reescritas, resuelto</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>Las cuatro C siguen el orden natural para delegar: lo que necesita saber, lo que quieres, lo que merece guardarse, lo que se repite en el calendario.</li>
+<li>El contexto y el comando te sirven hoy; la capacidad y el ciclo te sirven durante todas las semanas siguientes.</li>
+<li>Un pedido vago cobra en idas y vueltas el tiempo que ahorró al escribirlo.</li>
+<li>Cuando algo sale mal, cambia la perspectiva: en vez de culpar a la herramienta, busca la C que quedó fuera.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de comprobar el método con un pedido tuyo, con evidencia lado a lado, no con teoría.</p>
+<p class="na-action">En los próximos 15 minutos: elige la tarea que más repites en tu semana y escribe solo su Contexto (tres líneas: quién, para qué, límites). Será tu materia prima en las clases 4 y 6.</p>
+<p class="na-hook">En la próxima clase, el Contexto que escribes cada vez se convertirá en un expediente permanente: la primera pieza de memoria de tu sistema, escrita de una vez para siempre.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-2">← clase 2</a><a href="#aula-4">clase 4 →</a></nav>
+<footer>Lección 3 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-3" type="application/json">
+[
+  {"front":"A resposta veio certa no conteúdo, mas num formato inútil para você. Qual C faltou no pedido?","back":"O Comando — faltou nomear formato e limite: em tabela, em lista, em tantas linhas, sem o quê."},
+  {"front":"Qual a diferença entre um pedido bem escrito e uma capacidade?","back":"O pedido bem escrito serve uma vez; a capacidade é esse mesmo acerto com nome, guardado fora da conversa para ser chamado sempre."},
+  {"front":"Decisão: sua tarefa acontece toda sexta sem exceção. Ela pede qual C — e o que você faz com ela?","back":"O Ciclo: repetição com data marcada sai da sua cabeça e vai para um horário fixo do sistema."},
+  {"front":"Você recebeu um artigo formal quando queria um aviso curto para clientes. Aplique a régua: o que conserta?","back":"Uma linha de Contexto (quem lê e com que pressa) e uma de Comando (formato de aviso, tamanho máximo)."},
+  {"front":"Por que escrever o Contexto uma vez só, em vez de caprichar nele a cada conversa?","back":"Porque contexto digitado morre com a conversa; guardado como memória, ele volta sozinho — é isso que o dossiê da aula 4 resolve."}
+]
+</script>
+<!--
+COMPLETUDE aula-3 | tipo=FUNDAMENTO | steps=5
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="20min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (5/5: Renata s1, Túlio s2, Renata s3, Túlio s4, Túlio s5/mini-caso)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (5/5, data-fig 1–5)
+  [OK] practice           .practice[data-mode="prompt"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~12 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-3"> presente (5 cartões: diagnóstico, contraste, decisão, aplicação, pergunta)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/diagnóstico/aplicação; operação difere do recap)
+  [OK] teste-se-FUND      tipo=FUNDAMENTO: presente (1 quiz no step 3, data-fb na correta)
+-->
+</section>
+<!-- ===== AULA 4 ===== -->
+<section class="view" data-aula="4" data-tempo="17min" id="v-aula-4">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 4</p>
+<h1>Onboarding: preséntate<br/><em>una sola vez</em></h1>
+<p class="promise">Al terminar esta lección tendrás escrito y probado el expediente de presentación de tu asistente — quién eres, qué haces y cómo quieres las cosas, en una página que trabaja por ti en cada conversación.</p>
+<p class="why">Todo el contexto que escribes y vuelves a escribir —profesión, clientes, tono, manías— cabe en una página redactada con calma. Mientras esa página no exista, pagas el mismo costo de explicar en cada conversación. Hoy toma forma: es la primera pieza de memoria de tu sistema.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<rect height="180" rx="8" stroke="var(--line2)" stroke-width="2" width="156" x="72" y="30"></rect>
+<rect height="20" rx="4" stroke="var(--warm)" stroke-width="2" width="40" x="130" y="18"></rect>
+<circle cx="104" cy="70" r="18" stroke="var(--accent)" stroke-width="2"></circle>
+<path d="M92 116 a12 14 0 0 1 24 0" opacity="0" stroke="var(--accent)" stroke-width="1.5"></path>
+<line stroke="var(--ink-soft)" stroke-width="2" x1="134" x2="208" y1="60" y2="60"></line>
+<line opacity=".6" stroke="var(--ink-soft)" stroke-width="2" x1="134" x2="196" y1="78" y2="78"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="208" y1="112" y2="112"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="200" y1="134" y2="134"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="208" y1="156" y2="156"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="188" y1="178" y2="178"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="72" y="232">la ficha del primer día, completada una sola vez</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> Recibe a tu asistente como recibes a alguien</h2>
+<p>Cuando alguien nuevo llega a un buen equipo, el primer día no consiste en adivinar: la persona recibe información sobre quiénes somos, qué hacemos y cómo hablamos con los clientes. Este rito tiene un nombre en el mundo laboral: <span class="gterm" data-def="O processo de integrar alguém novo: apresentar o trabalho, as pessoas e o jeito da casa de uma vez, no começo, em vez de deixar descobrir aos trancos." tabindex="0">onboarding</span> — y es exactamente lo que tu asistente nunca recibió.</p>
+<p>La abogada Renata se dio cuenta de esto con su pasante: una tarde de presentación el primer día dio meses de trabajo coordinado. Con la IA, venía haciendo lo contrario — mil pequeñas explicaciones, ninguna permanente.</p>
+<p>El expediente de esta clase es esa presentación de la tarde, escrita una sola vez.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Las cinco partes del expediente</h2>
+<p>Un expediente útil no es una autobiografía: es una página con cinco bloques, cada uno responde una pregunta que el asistente se haría si pudiera.</p>
+<div class="qsteps">
+<p class="qsk">Las cinco partes, en orden</p>
+<ol>
+<li><b>Quién soy</b> — nombre, profesión, ciudad. Bastan dos líneas.</li>
+<li><b>Mi trabajo</b> — qué haces, para quién y en qué volumen. Tres líneas.</li>
+<li><b>Con quién hablo</b> — los tipos de personas que reciben tus textos y el tono para cada una.</li>
+<li><b>Cómo quiero</b> — formato estándar de las respuestas: extensión, lenguaje sencillo o técnico, qué incluir siempre.</li>
+<li><b>Nunca</b> — lo que nunca debe hacer sin preguntarte antes (enviar algo, prometer un plazo, mencionar valores).</li>
+</ol>
+</div>
+<p>El contador Túlio completó los cinco bloques en veinte minutos. Lo que más le rindió fue lo que casi se salta: el «Nunca», tres líneas que evitaron los errores más costosos.</p>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Escribe hechos, no prosa</h2>
+<p>El error clásico del primer expediente es escribirlo como una carta de presentación: párrafos elegantes, adjetivos, historia de vida. El asistente no necesita prosa: necesita hechos verificables y preferencias que se puedan aplicar, una por línea.</p>
+<p>Un caso breve para calibrar: en el primer borrador, la abogada Renata escribió «valoro la comunicación humanizada con mis clientes». Bonito, pero inútil. En el segundo, quedó así: «los clientes no son expertos; explico con palabras sencillas; máximo de 10 líneas; siempre termino indicando el siguiente paso». En la primera conversación de prueba, se notó la diferencia: el texto nuevo quedó listo para enviar, sin retoques.</p>
+<p>La escala es sencilla: si una frase del dossier no cambiaría ninguna respuesta, es decorativa — elimínala.</p>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="ferramenta" data-versao="Claude / ChatGPT, jul/2026">
+<h2><span class="n">04</span> Dónde vive el expediente (y cuándo cambia)</h2>
+<p>Una vez escrito el expediente, necesita una dirección. Las aplicaciones de IA más usadas hoy tienen un lugar para eso: busca en el menú nombres como "memoria", "instrucciones personalizadas" o "sobre ti". Lo que pegues allí se aplicará a cada conversación nueva, sin que tengas que repetirlo.</p>
+<p>Si tu aplicación no tiene esta función (o no la encuentras), hay una opción que funciona en cualquiera: guarda el expediente en un documento tuyo y pégalo como primer mensaje de la conversación. Es menos automático, pero tiene el mismo efecto.</p>
+<p>El contador Túlio también programó un recordatorio trimestral: el expediente es un documento vivo. Los clientes nuevos importantes y los cambios de servicio o de tono se agregan a la página; lo demás se queda quieto.</p>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="prompt" data-practice="p4">
+<p class="pk">Practica ahora <span class="pcount">0/4 hecho</span></p>
+<h3 class="ph">Escribe y prueba tu expediente</h3>
+<p class="pgoal">Termina con el expediente completo (cinco partes) y aprobado en una prueba real en tu chat — ~15 min.</p>
+<p class="psafe">El expediente es un texto tuyo, guardado donde tú elijas: no se publica ni se envía a nadie. Si la prueba sale rara, editas la página y vuelves a probar; equivocarte aquí no cuesta nada.</p>
+<div class="pcodewrap"><button class="pcopy" type="button">copiar</button><pre class="pcode">QUEM SOU: &lt;nome, profissão, cidade — 2 linhas&gt;
+MEU TRABALHO: &lt;o que faço, para quem, volumes — 3 linhas&gt;
+COM QUEM FALO: &lt;tipos de leitor e o tom para cada um&gt;
+COMO QUERO: &lt;tamanho padrão, língua simples ou técnica, o que sempre incluir&gt;
+NUNCA: &lt;o que jamais fazer sem me perguntar antes&gt;
+
+Guarde esta apresentação. Agora, usando só o que está nela,
+escreva &lt;uma tarefa típica sua&gt; como se você fosse meu assistente.</pre></div>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Completa las cinco partes en un documento tuyo, una línea por hecho. Usa la nota de contexto que hiciste al final de la clase 3.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Quita el relleno: vuelve a leer y borra toda frase que no cambiaría ninguna respuesta.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Pega el bloque completo (expediente + solicitud de prueba) en tu chat. Lo que deberías ver: una respuesta que ya respeta tu tono y tus límites.</label></li>
+<li><label><input data-ptask="4" type="checkbox"/> Guarda el expediente en el lugar definitivo: la función de memoria de la aplicación o tu documento. Está listo cuando tenga una dirección fija.</label></li>
+</ol>
+<p class="pdone">Tu asistente acaba de recibir el primer día de trabajo que nunca tuvo. De aquí en adelante, cada conversación empieza con él sabiendo quién eres.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Dois regimes de explicação: mil avulsas que evaporam, ou uma apresentação permanente que alimenta todas as conversas." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<circle cx="40" cy="44" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<circle cx="66" cy="36" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<circle cx="54" cy="62" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<circle cx="82" cy="56" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<circle cx="70" cy="80" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="24" y="106">explicaciones sueltas</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="24" y="120">se evaporan una a una</text>
+<rect height="92" rx="6" stroke="var(--accent)" stroke-width="1.5" width="72" x="132" y="30"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="142" x2="194" y1="50" y2="50"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="142" x2="188" y1="68" y2="68"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="142" x2="194" y1="86" y2="86"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="142" x2="180" y1="104" y2="104"></line>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="132" y="142">1 página permanente</text>
+<path d="M168 122 v22 M158 136 l10 10 10 -10" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="120" y="172">alimenta cada conversación</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A página de cinco blocos: cada um responde uma pergunta que o assistente se faria — e o último bloco é a cerca de segurança." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="172" rx="8" stroke="var(--line2)" stroke-width="1.5" width="128" x="46" y="14"></rect>
+<rect height="22" rx="4" stroke="var(--accent)" stroke-width="1.2" width="104" x="58" y="28"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="66" y="43">quién soy</text>
+<rect height="22" rx="4" stroke="var(--accent)" stroke-width="1.2" width="104" x="58" y="56"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="66" y="71">mi trabajo</text>
+<rect height="22" rx="4" stroke="var(--accent)" stroke-width="1.2" width="104" x="58" y="84"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="66" y="99">con quién hablo</text>
+<rect height="22" rx="4" stroke="var(--accent)" stroke-width="1.2" width="104" x="58" y="112"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="66" y="127">cómo quiero</text>
+<rect height="22" rx="4" stroke="var(--warm)" stroke-width="1.5" width="104" x="58" y="140"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="66" y="155">nunca</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="46" y="198">5 bloques, 1 página — no más</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O filtro do enfeite: frase que não muda resposta sai; fato e preferência acionável ficam." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="26" rx="5" stroke="var(--warm)" stroke-dasharray="4 4" stroke-width="1.5" width="188" x="16" y="24"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="26" y="41">"valoro la comunicación..."</text>
+<path d="M110 50 v18" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="30" rx="6" stroke="var(--accent)" stroke-width="1.5" width="116" x="52" y="72"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="62" y="91">¿cambia la respuesta?</text>
+<path d="M80 102 L48 132" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="20" y="150">no → corta</text>
+<path d="M142 102 L174 132" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="140" y="150">sí → se queda</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="184">"personas sin conocimientos · 10 líneas · siguiente paso"</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Os dois endereços possíveis do dossiê — memória do aplicativo ou documento seu — e o ciclo trimestral de revisão." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="44" rx="6" stroke="var(--accent)" stroke-width="1.5" width="80" x="70" y="18"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="82" y="44">dossier</text>
+<path d="M92 62 L54 96" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M128 62 L166 96" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="40" rx="6" stroke="var(--line2)" stroke-width="1.5" width="80" x="16" y="100"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="26" y="118">memoria de</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="26" y="132">aplicación</text>
+<rect height="40" rx="6" stroke="var(--line2)" stroke-width="1.5" width="80" x="124" y="100"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="134" y="118">documento tuyo,</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="134" y="132">pegado al inicio</text>
+<path d="M60 160 a54 20 0 0 0 100 0" stroke="var(--warm)" stroke-width="1.5"></path>
+<path d="M156 156 l6 8 -11 1" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="58" y="192">revisión cada 3 meses</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>Onboarding es darle al asistente el primer día de trabajo que recibe toda persona nueva: por escrito y de una sola vez.</li>
+<li>El expediente tiene cinco bloques en una página; el «Nunca» es lo que evita los errores más costosos.</li>
+<li>Hecho aceptado, adorno eliminado: solo se queda la frase capaz de cambiar alguna respuesta.</li>
+<li>Con una dirección fija —memoria de la aplicación o documento pegado—, la página funciona en cada conversación; basta con revisarla trimestralmente.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de darle memoria permanente a tu asistente: la pieza que la revisión de la lección 2 probablemente señaló como la más vacía.</p>
+<p class="na-action">En los próximos 15 minutos: envía una tarea real de hoy en el chat, sin explicar nada, y observa cuánto del expediente aparece en la respuesta. Añade a la página lo que falte.</p>
+<p class="na-hook">En la próxima clase, las Manos: tu asistente empezará a ver una herramienta tuya de verdad, y tú decidirás con criterio hasta dónde llega ese alcance.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-3">← clase 3</a><a href="#aula-5">clase 5 →</a></nav>
+<footer>Lección 4 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-4" type="application/json">
+[
+  {"front":"Você abriu uma conversa nova e a resposta veio no tom errado, apesar do dossiê escrito. O que verificar primeiro?","back":"Se o dossiê tem endereço fixo: guardado na memória do aplicativo ou colado no início — página solta em documento não age sozinha."},
+  {"front":"Decisão: 'atendo com excelência há 20 anos' merece ficar no dossiê?","back":"Não — não muda nenhuma resposta. Vira algo acionável ('clientes leigos, máximo 10 linhas, terminar com o próximo passo') ou sai."},
+  {"front":"Aplicação: seu assistente citou um valor de honorário numa resposta a cliente. Que bloco do dossiê previne isso — e com que frase?","back":"O 'Nunca': por exemplo, 'nunca citar valores nem prometer prazos sem me perguntar antes'."}
+]
+</script>
+<!--
+COMPLETUDE aula-4 | tipo=PRATICA | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="17min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Renata s1, Túlio s2, Renata s3/mini-caso, Túlio s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="prompt"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~15 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-4"> presente (3 cartões de integração: diagnóstico, decisão, aplicação)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/aplicação; operação difere do recap)
+  [N/A] teste-se-FUND     aula é PRÁTICA/INTEGRAÇÃO (obrigação não se aplica); sem teste-se opcional
+-->
+</section>
+<!-- ===== AULA 5 ===== -->
+<section class="view" data-aula="5" data-tempo="18min" id="v-aula-5">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 5</p>
+<h1>Conecta tus<br/><em>herramientas</em></h1>
+<p class="promise">Al terminar esta lección podrás conectar tu asistente con una herramienta que ya usas — calendario, archivos o correo electrónico — y decidir, con criterio propio, qué puede ver y qué no puede tocar.</p>
+<p class="why">Tu asistente ya sabe quién eres (el expediente), pero sigue con los ojos vendados: no ve tu agenda, tus documentos ni tu bandeja de entrada. Por eso todavía adivina horarios e inventa detalles. Darle alcance es el paso que más asusta, y esta lección lo vuelve controlado y reversible.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<line stroke="var(--line2)" stroke-width="2" x1="24" x2="276" y1="200" y2="200"></line>
+<rect height="140" rx="4" stroke="var(--line2)" stroke-width="2" width="52" x="40" y="60"></rect>
+<circle cx="82" cy="132" r="4" stroke="var(--line2)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="42" y="50">agenda</text>
+<rect height="140" rx="4" stroke="var(--accent)" stroke-width="2" width="52" x="124" y="60"></rect>
+<circle cx="166" cy="132" r="4" stroke="var(--accent)" stroke-width="1.5"></circle>
+<path d="M124 60 l52 140" opacity=".35" stroke="var(--accent)" stroke-width="1"></path>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="11" x="126" y="50">archivos</text>
+<rect height="140" rx="4" stroke="var(--line2)" stroke-width="2" width="52" x="208" y="60"></rect>
+<circle cx="250" cy="132" r="4" stroke="var(--line2)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="210" y="50">correo electrónico</text>
+<circle cx="150" cy="222" r="7" stroke="var(--warm)" stroke-width="2"></circle>
+<path d="M157 222 h34 M181 222 v8 M172 222 v6" stroke="var(--warm)" stroke-width="2"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="52" y="26">tres puertas, una llave: tú eliges cuál abrir</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="ferramenta" data-versao="Claude / ChatGPT, jul/2026">
+<h2><span class="n">01</span> Conector: la puerta que abres desde dentro</h2>
+<p>En las aplicaciones de IA más usadas existe una función llamada <span class="gterm" data-def="O recurso do aplicativo de IA que liga o assistente a um serviço seu (agenda, arquivos, e-mail). Liga e desliga com um botão, dentro do próprio aplicativo." tabindex="0">conector</span> (a veces aparece como "integraciones" o "aplicaciones conectadas"). Antes de abrir ese menú, una traducción: cada conector es una puerta de tu oficina, y la llave la tienes tú — la entregas cuando quieres y la recuperas con el mismo gesto.</p>
+<p>La abogada Renata abrió una sola puerta: la agenda. A partir de ahí, «¿qué horarios ofrezco para la reunión del jueves?» empezó a recibir como respuesta sus horarios reales — teniendo en cuenta las audiencias y respetando el almuerzo.</p>
+<p>No se instala nada en tu computadora ni cambia nada en tus herramientas: la conexión ocurre dentro de la aplicación de IA, con un botón para activarla y desactivarla.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Ver es una cosa; modificar, otra</h2>
+<p>Todo acceso tiene dos niveles, y la diferencia entre ellos es tu tranquilidad. <b>Ver</b>: el asistente lee la agenda, lee un documento, lee un correo — y nada cambia en el mundo. <b>Mover</b>: él marca, edita, envía — y entonces algo ocurrió en tu nombre.</p>
+<p>El contador Túlio aplicó la regla de su casa: el primer mes, todo solo en modo de lectura. El asistente leía la hoja de cálculo de plazos y preparaba alertas, pero quien las enviaba era Túlio, después de leerlas. Solo cuando las alertas llevaban semanas llegando bien, consideró subir de nivel.</p>
+<div class="qerr">
+<p class="qk">Error común</p>
+<p class="qerr-txt"><b>Conectar todo de una vez el primer día.</b> Sucede porque la pantalla ofrece varias conexiones juntas y el entusiasmo hace que las marques todas. El problema: pierdes de vista a qué tiene acceso, y cualquier respuesta extraña se vuelve un misterio. Cómo evitarlo: una herramienta por semana, empezando por la que más te afecta — y solo en el peldaño de ver.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Qué puerta abrir primero</h2>
+<p>El criterio no es técnico: es dónde te duele la semana. Pregúntate: ¿qué información copio y pego más veces en el chat? Esa es la primera puerta.</p>
+<p>Para la abogada Renata, era la agenda (cambios de horario todo el día). Para el contador Túlio, los archivos: la hoja de cálculo de plazos que pegaba pedazo por pedazo. El correo suele ser la tercera puerta, no la primera: es la más íntima y la que menos hace falta al comienzo.</p>
+<div class="quiz" data-answer="a">
+<p class="qk">Ponte a prueba</p><p class="q">Copias tu lista de compromisos en el chat tres veces al día. ¿Cuál es la primera puerta que debes abrir?</p>
+<button class="opt" data-fb="Isso: a primeira porta é onde está a dor mais repetida — se você vive colando a agenda, é ela que merece o conector, no degrau do ver." data-k="a">La agenda — es lo que siempre estás pegando</button>
+<button class="opt" data-k="b">El correo electrónico: es el más usado de la oficina</button>
+<button class="opt" data-k="c">Todas juntas, para aprovechar el viaje</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="ferramenta" data-versao="Claude / ChatGPT, jul/2026">
+<h2><span class="n">04</span> La guía para una conexión segura</h2>
+<p>La conexión en sí es un recorrido por menús: la aplicación te pide que confirmes con la cuenta de la herramienta y te muestra qué se compartirá. Lo que hace que este recorrido sea seguro es el orden de los pasos — siempre el mismo, para cualquier puerta.</p>
+<div class="qsteps">
+<p class="qsk">La guía, puerta por puerta</p>
+<ol>
+<li><b>Elige una sola herramienta</b> — la que más se repite y más te duele.</li>
+<li><b>Conecta su conector</b> en el menú de la aplicación de IA y lee el aviso sobre lo que se compartirá antes de confirmar.</li>
+<li><b>Quédate en el nivel de ver</b> — si la pantalla ofrece opciones, prefiere las de lectura.</li>
+<li><b>Haz una pregunta de verdad</b> ("¿qué tengo mañana?") y compara la respuesta con la herramienta real.</li>
+<li><b>Úsalo durante una semana</b> antes de pensar en la segunda puerta.</li>
+</ol>
+</div>
+<p>Este fue el plan que siguió el contador Túlio con los archivos, y la semana de espera evitó que abriera el correo por impulso y sin necesidad.</p>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="tarefa" data-practice="p5">
+<p class="pk">Practica ahora <span class="pcount">0/4 hecho</span></p>
+<h3 class="ph">Abre tu primera puerta</h3>
+<p class="pgoal">Termina con una herramienta conectada en el nivel de ver, y comprobada con una pregunta real — ~15 min.</p>
+<p class="psafe">En el nivel de solo ver, el asistente lee y nada más: no marca, no envía, no modifica. El botón que activa el conector también lo desactiva: puedes revertirlo en cualquier momento, sin dejar rastro en tus herramientas.</p>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Escribe en una línea qué información copias más en el chat: esa es tu primera puerta.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> En la aplicación de IA, busca el menú de conectores (o «integraciones») y activa solo el de la herramienta elegida; lee el aviso antes de confirmar.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Haz la pregunta de verdad: "¿qué tengo mañana?" (agenda) o "¿qué dice el documento X?" (archivos). Lo que deberías ver: tu información real, no una suposición.</label></li>
+<li><label><input data-ptask="4" type="checkbox"/> Verifica la respuesta con la herramienta original. Listo cuando ambas coincidan. Si tu aplicación no tiene conectores, termina escribiendo la línea del paso 1 y guárdala: ella decidirá cuál será tu primera puerta cuando llegue la función.</label></li>
+</ol>
+<p class="pdone">Tu asistente acaba de ganar el primer fragmento de alcance real: elegido por ti, limitado por ti y reversible por ti.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O conector por dentro: a ligação nasce no aplicativo de IA, com um botão de liga/desliga — nada muda na ferramenta do outro lado." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="80" rx="8" stroke="var(--accent)" stroke-width="1.5" width="82" x="16" y="56"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="26" y="76">app de IA</text>
+<rect height="20" rx="10" stroke="var(--accent)" stroke-width="1.5" width="58" x="28" y="90"></rect>
+<circle cx="76" cy="100" fill="var(--accent)" r="7"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="28" y="126">activa · desactiva</text>
+<path d="M98 96 h32" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M124 90 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="60" rx="8" stroke="var(--line2)" stroke-width="1.5" width="66" x="138" y="66"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="150" y="90">agenda</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="150" y="108">intacta</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="172">la llave se queda de tu lado de la puerta</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Os dois degraus do acesso: no primeiro, a informação só entra; no segundo, ações saem em seu nome — suba um degrau por vez." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--accent)" stroke-width="1.5" x1="20" x2="120" y1="160" y2="160"></line>
+<line stroke="var(--accent)" stroke-width="1.5" x1="120" x2="120" y1="160" y2="104"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="120" x2="200" y1="104" y2="104"></line>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="36" y="150">paso 1: ver</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="36" y="182">lees y nada cambia</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="128" y="94">paso 2: cambiar</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="128" y="126">actúa en tu nombre</text>
+<path d="M76 128 v-52" stroke="var(--line2)" stroke-dasharray="3 4" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="30" y="64">semanas de confianza</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="30" y="48">entre un paso y otro:</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O critério da primeira porta: a fila é ordenada pela dor — o que você mais copia para o chat vai na frente." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="34" rx="6" stroke="var(--accent)" stroke-width="1.5" width="188" x="16" y="36"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="28" y="57">1.º lo que siempre copias y pegas</text>
+<rect height="34" rx="6" stroke="var(--line2)" stroke-width="1.5" width="150" x="16" y="86"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="107">2.º lo que sería útil a veces</text>
+<rect height="34" rx="6" stroke="var(--line2)" stroke-dasharray="4 4" stroke-width="1.5" width="112" x="16" y="136"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="157">3.º correo: después</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="192">el dolor repetido decide, no la tecnología</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; As cinco estações do roteiro seguro — da escolha de uma porta até a semana de uso antes da próxima." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--line2)" stroke-width="1.5" x1="30" x2="190" y1="100" y2="100"></line>
+<circle cx="34" cy="100" r="6" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="72" cy="100" r="6" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="110" cy="100" r="6" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="148" cy="100" r="6" stroke="var(--accent)" stroke-width="1.5"></circle>
+<circle cx="186" cy="100" r="6" stroke="var(--warm)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="20" y="80">1 puerta</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="58" y="128">conectar</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="96" y="80">solo ver</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="130" y="128">probar</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="164" y="80">1 semana</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="24" y="170">el mismo orden para cada puerta nueva</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>Un conector es una puerta con llave por dentro: se conecta con un botón y se desconecta con el mismo, sin tocar la herramienta original.</li>
+<li>Ver y modificar son pasos distintos, y el primer mes entero puede (y debe) transcurrir solo en el primero.</li>
+<li>El orden de las puertas sigue el dolor: lo que más copias en el chat va primero; el correo puede esperar.</li>
+<li>La guía de cinco pasos sirve para toda conexión nueva: una por semana, puesta a prueba en la realidad.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de darle ojos a tu asistente en una herramienta real, con límites y reversibilidad decididos por ti.</p>
+<p class="na-action">En los próximos 15 minutos: vuelve a hacer una pregunta que respondía al azar (una hora, un dato de un documento) y compara la respuesta con la de ahora. Guarda ambas como evidencia.</p>
+<p class="na-hook">En la próxima clase, tus aciertos dejarán de morir en el historial: escribirás la primera receta con nombre de tu sistema y la invocarás en segundos.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-4">← clase 4</a><a href="#aula-6">clase 6 →</a></nav>
+<footer>Lección 5 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-5" type="application/json">
+[
+  {"front":"O assistente respondeu a agenda de amanhã com compromissos que não existem. Diagnóstico em dois passos?","back":"Primeiro: o conector da agenda está ligado? Segundo: a pergunta foi feita na conversa certa do aplicativo com o conector ativo? Sem alcance, ele volta ao chute."},
+  {"front":"Decisão: a tela oferece agenda, arquivos e e-mail juntos. Você precisa dos três 'para adiantar'. O que faz?","back":"Liga um só — o da informação que você mais copia — e marca uma semana de uso antes de considerar o próximo."},
+  {"front":"Qual a diferença prática entre os dois degraus de acesso quando algo dá errado?","back":"No ver, o pior caso é uma resposta ruim que você descarta. No mexer, algo aconteceu em seu nome — por isso o degrau 2 espera semanas de confiança."},
+  {"front":"Aplicação: sua colega quer 'desconectar tudo' por medo. O que você mostra a ela?","back":"Que o botão que ligou é o que desliga, na mesma tela — e que no degrau do ver nada foi alterado nas ferramentas dela."}
+]
+</script>
+<!--
+COMPLETUDE aula-5 | tipo=FERRAMENTA | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="18min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Renata s1, Túlio s2, Renata+Túlio s3, Túlio s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="tarefa"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1) — reforçada, prática de maior risco percebido do curso
+  [OK] pgoal-tempo        .pgoal com "~15 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-5"> presente (4 cartões: diagnóstico, decisão, contraste, aplicação)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/aplicação; operação difere do recap)
+  [N/A] teste-se-FUND     aula é FERRAMENTA (obrigação não se aplica); teste-se opcional presente (1 pergunta, step 3)
+-->
+</section>
+<!-- ===== AULA 6 ===== -->
+<section class="view" data-aula="6" data-tempo="19min" id="v-aula-6">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 6</p>
+<h1>Recetas: capacidades<br/>con <em>nombre</em></h1>
+<p class="promise">Al terminar esta lección podrás convertir una solicitud tuya que funcionó en una receta con nombre — escrita, guardada y probada — y volver a usarla en segundos, sin reescribir nada.</p>
+<p class="why">Ya perfeccionaste pedidos que funcionaron, pero se están echando a perder en el historial, mezclados con todo lo demás. La semana que viene reconstruirás de memoria una versión peor. La receta acaba con ese desperdicio: el tercer C (Capacidad) deja la teoría y llega a tu cajón.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<rect height="176" rx="8" stroke="var(--line2)" stroke-width="2" width="160" x="70" y="34"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="150" x2="150" y1="34" y2="210"></line>
+<rect height="24" rx="3" stroke="var(--accent)" stroke-width="2" width="16" x="222" y="56"></rect>
+<rect height="24" rx="3" stroke="var(--warm)" stroke-width="2" width="16" x="222" y="96"></rect>
+<rect height="24" rx="3" stroke="var(--accent)" stroke-width="2" width="16" x="222" y="136"></rect>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="86" x2="136" y1="66" y2="66"></line>
+<line opacity=".6" stroke="var(--ink-soft)" stroke-width="1.5" x1="86" x2="128" y1="86" y2="86"></line>
+<line opacity=".6" stroke="var(--ink-soft)" stroke-width="1.5" x1="86" x2="134" y1="106" y2="106"></line>
+<line stroke="var(--ink-soft)" stroke-width="1.5" x1="164" x2="214" y1="66" y2="66"></line>
+<line opacity=".6" stroke="var(--ink-soft)" stroke-width="1.5" x1="164" x2="206" y1="86" y2="86"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="70" y="232">el recetario familiar — con marcadores</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> El acierto que muere en el historial</h2>
+<p>Todos los meses, el contador Túlio iba armando poco a poco el pedido perfecto para el recordatorio de plazos: el tono adecuado, el orden correcto, el aviso legal al final. Y al mes siguiente volvía a revisar el historial para encontrar aquella conversación, o se daba por vencido y lo rehacía de memoria, olvidando algún detalle.</p>
+<p>El historial del chat es un diario, no un archivo: las cosas aparecen en orden cronológico y desaparecen bajo las conversaciones nuevas. Guardar patrimonio ahí es como guardar un documento importante en una pila de periódicos viejos.</p>
+<p>Lo que se escapa de esa pila es lo que tiene forma propia y una dirección: exactamente lo que tiene una receta.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> La anatomía de una receta</h2>
+<p>Una receta de trabajo tiene cuatro campos, ni más ni menos. El nombre técnico que encontrarás por ahí es <span class="gterm" data-def="Nome usado nos aplicativos de IA para uma instrução reutilizável e nomeada — o que este curso chama de receita. Skill, em inglês, é 'habilidade'." tabindex="0">skill</span>, pero el funcionamiento es como el de un cuaderno de cocina: quien lo lee puede reproducir el plato.</p>
+<p>Los cuatro campos: <b>nombre</b> (breve, memorable: "resumen para cliente"), <b>cuándo usar</b> (la situación que lo activa), <b>los pasos</b> (el método, numerado) y <b>cómo queda bien</b> (dos líneas que muestren cómo se ve el resultado correcto).</p>
+<div class="qbefore-after">
+<div class="qba-col qba-before"><p class="qba-lbl">antes</p><p class="qba-txt">La abogada Renata gastaba 15 minutos reconstruyendo la solicitud para resumir un contrato — y cada versión salía distinta.</p></div>
+<div class="qba-col qba-depois"><p class="qba-lbl">después</p><p class="qba-txt">Ella escribe "usa la receta resumen para el cliente" y adjunta el contrato; dos minutos después, el texto sale con el formato de siempre.</p></div>
+<p class="qba-saldo"><b>Saldo:</b> de 15 minutos a 2 por uso — y un patrón que no varía según la memoria del día.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Enseña la receta y llámala por su nombre</h2>
+<p>Una receta escrita debe enseñarse una vez. El camino es el mismo que con el dossier: pégala en la memoria de la aplicación (o en tu documento de sistema) con una instrucción sencilla: «guarda esta receta; cuando escriba su nombre, aplícala al material que te envíe».</p>
+<p>De la prueba del contador Túlio, en la primera semana: "usa la receta recordatorio de plazos" más la lista de clientes, y el aviso salió con su formato, sin ninguna explicación adicional. El nombre se convirtió en un botón que solo existe para él.</p>
+<div class="quiz" data-answer="c">
+<p class="qk">Ponte a prueba</p><p class="q">Escribiste la receta, pero la semana siguiente el asistente no la aplicó. ¿Cuál es la causa más probable?</p>
+<button class="opt" data-k="a">El modelo se volvió menos inteligente durante la semana</button>
+<button class="opt" data-k="b">Las recetas solo funcionan el día en que se escriben</button>
+<button class="opt" data-fb="É isso: receita sem endereço morre com a conversa — ela precisa estar guardada na memória do aplicativo ou colada junto do pedido." data-k="c">Se quedó solo en la conversación antigua, sin una dirección fija</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> El cajón crece al ritmo del uso</h2>
+<p>Una receta es práctica; cinco recetas son un sistema de trabajo. El cajón de la abogada Renata, después de dos meses: resumen para clientes, primera respuesta a una propuesta, guion para una reunión, aviso de novedades. Cada una nació de un acierto repetido; ninguna, de la imaginación.</p>
+<p>Esta es la regla de oro del cajón: no escribas recetas para tareas que imaginas que podrías tener; espera a que se repitan. La señal es clara y ya la conoces del tercer C.</p>
+<div class="qanchor"><p>Si lo pediste dos veces, escribe la receta antes de la tercera.</p></div>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="prompt" data-practice="p6">
+<p class="pk">Practica ahora <span class="pcount">0/3 hecho</span></p>
+<h3 class="ph">Escribe tu primera receta</h3>
+<p class="pgoal">Termina con una receta de cuatro campos escrita, enseñada al asistente y comprobada en una prueba con material real — ~12 min.</p>
+<p class="psafe">La receta es un texto tuyo: si sale mal, la editas y vuelves a enseñarle — nada se rompe, nada queda bloqueado. El material de prueba sigue intacto donde siempre estuvo.</p>
+<div class="pcodewrap"><button class="pcopy" type="button">copiar</button><pre class="pcode">RECEITA: &lt;nome curto — ex.: resumo para cliente&gt;
+QUANDO USAR: &lt;a situação que dispara — ex.: cliente pede notícia do caso&gt;
+PASSOS:
+1) &lt;primeiro passo do método&gt;
+2) &lt;segundo passo&gt;
+3) &lt;terceiro passo&gt;
+COMO FICA BOM: &lt;duas linhas com a cara do resultado certo&gt;
+
+Guarde esta receita. Quando eu escrever só o nome dela,
+aplique os passos ao material que eu enviar.</pre></div>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Elige la solicitud que más repetiste este mes (la de la práctica de la clase 3 es una excelente candidata) y completa los cuatro campos.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Pega el bloque en tu chat y confirma que lo entendió ("¿qué receta acabas de guardar?").</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> En una conversación nueva, invócala solo por su nombre con un material real. Lo que debes ver: el resultado según el estándar del campo «cómo queda bien». Listo cuando coincida.</label></li>
+</ol>
+<p class="pdone">Acabas de crear el primer botón personalizado de tu sistema: un acierto tuyo que ahora tiene nombre, ubicación y fecha de vencimiento indefinida.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O diário engole o acerto: a conversa boa afunda sob as novas, e semana que vem ninguém a encontra inteira." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="24" rx="5" stroke="var(--line2)" stroke-width="1.5" width="140" x="40" y="26"></rect>
+<rect height="24" rx="5" stroke="var(--line2)" stroke-width="1.5" width="140" x="40" y="58"></rect>
+<rect height="24" rx="5" stroke="var(--line2)" stroke-width="1.5" width="140" x="40" y="90"></rect>
+<rect height="24" rx="5" stroke="var(--accent)" stroke-width="1.5" width="140" x="40" y="122"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="52" y="138">la solicitud perfecta</text>
+<rect height="24" rx="5" stroke="var(--line2)" stroke-width="1.5" width="140" x="40" y="154"></rect>
+<path d="M110 8 v12 M104 14 l6 8 6 -8" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="126" y="18">nuevas encima</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="40" y="196">el diario no es un archivo</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O cartão de quatro campos: nome, gatilho, método e a cara do resultado — quem lê, reproduz." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="160" rx="10" stroke="var(--accent)" stroke-width="1.5" width="160" x="30" y="20"></rect>
+<rect height="20" rx="4" stroke="var(--accent)" stroke-width="1.5" width="100" x="42" y="34"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="50" y="48">nombre</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="42" x2="178" y1="72" y2="72"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="42" y="66">cuándo usar</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="42" y="94">pasos</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="54" x2="170" y1="106" y2="106"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="54" x2="162" y1="120" y2="120"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="54" x2="168" y1="134" y2="134"></line>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="42" y="158">cómo queda bien</text>
+<line stroke="var(--warm)" stroke-width="1.5" x1="42" x2="150" y1="166" y2="166"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="30" y="196">4 campos — ni más ni menos</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Ensinar uma vez, chamar pelo nome sempre: a receita guardada vira um botão que só existe para você." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="52" rx="6" stroke="var(--line2)" stroke-width="1.5" width="86" x="16" y="30"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="26" y="52">receta escrita</text>
+<path d="M102 56 h30" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M126 50 l8 6 -8 6" stroke="var(--accent)" stroke-width="1.5"></path>
+<rect height="40" rx="6" stroke="var(--accent)" stroke-width="1.5" width="64" x="140" y="36"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="150" y="60">memoria</text>
+<rect height="30" rx="15" stroke="var(--warm)" stroke-width="1.5" width="108" x="56" y="118"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="68" y="137">"usa la receta X"</text>
+<path d="M170 108 L164 118" stroke="var(--warm)" stroke-width="1.5"></path>
+<path d="M110 148 v16 M104 158 l6 8 6 -8" stroke="var(--line2)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="64" y="188">resultado según el estándar</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A gaveta que cresce pelo uso: cada etiqueta nasceu de repetição real — nenhuma de imaginação." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="152" rx="8" stroke="var(--line2)" stroke-width="1.5" width="160" x="30" y="24"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="30" x2="190" y1="62" y2="62"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="30" x2="190" y1="100" y2="100"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="30" x2="190" y1="138" y2="138"></line>
+<rect height="18" rx="3" stroke="var(--accent)" stroke-width="1.2" width="94" x="44" y="34"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="8.5" x="50" y="47">resumen para el cliente</text>
+<rect height="18" rx="3" stroke="var(--accent)" stroke-width="1.2" width="110" x="44" y="72"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="8.5" x="50" y="85">respuesta a la propuesta</text>
+<rect height="18" rx="3" stroke="var(--accent)" stroke-width="1.2" width="88" x="44" y="110"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="8.5" x="50" y="123">guion de reunión</text>
+<rect height="18" rx="3" stroke="var(--line2)" stroke-dasharray="3 3" stroke-width="1.2" width="70" x="44" y="148"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="8.5" x="50" y="161">la siguiente...</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="30" y="194">la repetición real crea; la imaginación no</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>El historial es un diario: lo que no tiene forma ni dirección se hunde, incluso tus mejores solicitudes.</li>
+<li>La receta da forma a lo acordado en cuatro campos: nombre, cuándo usarla, pasos y cómo se ve el resultado correcto.</li>
+<li>Enseñada una vez (en la memoria o en un documento), responde a su nombre en cualquier conversación nueva.</li>
+<li>El cajón crece con el uso real, nunca por anticipado — la repetición es la que determina cuándo crearlo.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de convertir un acierto perecedero en un activo permanente de tu sistema.</p>
+<p class="na-action">En los próximos 15 minutos: enumera tres pedidos que repetiste este mes y marca cuál merece ser la segunda receta. Solo márcalo, todavía no lo escribas.</p>
+<p class="na-hook">En la próxima clase, la receta tendrá horario: definirás la primera tarea que el asistente ejecuta solo, a la hora indicada, sin que nadie se lo pida.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-5">← clase 5</a><a href="#aula-7">clase 7 →</a></nav>
+<footer>Lección 6 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-6" type="application/json">
+[
+  {"front":"Você chamou a receita pelo nome e veio um resultado genérico. Diagnóstico: onde ela provavelmente está?","back":"Só na conversa antiga — sem endereço na memória do aplicativo (ou colada junto), o nome não aciona nada."},
+  {"front":"Qual a diferença entre caprichar no pedido e ter uma receita?","back":"O capricho vive uma conversa; a receita é o capricho com nome e endereço, reproduzível em qualquer conversa futura."},
+  {"front":"Decisão: você imagina que 'um dia' vai precisar de uma receita de relatório anual. Escreve agora?","back":"Não — gaveta cresce por repetição real. Espere o pedido acontecer a segunda vez; aí sim ele ganha receita antes da terceira."},
+  {"front":"Aplicação: a receita funcionou 5 vezes e na 6ª saiu fora do padrão. O que você ajusta primeiro?","back":"O campo 'como fica bom' — deixe o exemplo do resultado mais concreto; é ele que segura o padrão quando o material varia."},
+  {"front":"Por que o campo 'quando usar' importa se quem chama a receita é você mesmo?","back":"Porque meses depois você esquece o gatilho; e porque é ele que permite ao assistente sugerir a receita certa na situação certa."}
+]
+</script>
+<!--
+COMPLETUDE aula-6 | tipo=FUNDAMENTO | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="19min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Túlio s1, Renata s2, Túlio s3, Renata s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="prompt"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~12 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-6"> presente (5 cartões: diagnóstico, contraste, decisão, aplicação, pergunta)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/diagnóstico/aplicação; operação difere do recap)
+  [OK] teste-se-FUND      tipo=FUNDAMENTO: presente (1 quiz no step 3, data-fb na correta)
+-->
+</section>
+<!-- ===== AULA 7 ===== -->
+<section class="view" data-aula="7" data-tempo="18min" id="v-aula-7">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 7</p>
+<h1>Rutinas: trabajo<br/><em>sin ti</em></h1>
+<p class="promise">Al terminar esta lección podrás escribir la orden de trabajo completa de una tarea que el asistente ejecuta por su cuenta, a una hora programada — y dejarla programada o lista para programar.</p>
+<p class="why">Hasta aquí, todo en tu sistema espera a que se lo pidas. Pero parte de tu trabajo depende del calendario — la misma revisión todos los lunes, el mismo aviso a fin de mes — y eres tú quien carga ese reloj en la cabeza. Esta lección cuelga el reloj en el sistema y te devuelve solo el resultado.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<circle cx="110" cy="110" r="58" stroke="var(--accent)" stroke-width="2"></circle>
+<circle cx="110" cy="110" r="6" stroke="var(--accent)" stroke-width="2"></circle>
+<path d="M110 110 L110 68 M110 110 L140 124" stroke="var(--accent)" stroke-width="2"></path>
+<circle cx="70" cy="52" r="12" stroke="var(--accent)" stroke-width="2"></circle>
+<circle cx="150" cy="52" r="12" stroke="var(--accent)" stroke-width="2"></circle>
+<rect height="96" rx="4" stroke="var(--warm)" stroke-width="2" width="64" x="204" y="62"></rect>
+<circle cx="236" cy="56" r="5" stroke="var(--warm)" stroke-width="2"></circle>
+<line stroke="var(--warm)" stroke-width="1.5" x1="214" x2="258" y1="86" y2="86"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="214" x2="250" y1="106" y2="106"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="214" x2="256" y1="126" y2="126"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="46" y="206">el despertador y la lista colgada del clavo</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="ferramenta" data-versao="Claude / ChatGPT, jul/2026">
+<h2><span class="n">01</span> Rutina: tarea con hora programada</h2>
+<p>Una <span class="gterm" data-def="Tarefa que o assistente executa sozinho num horário combinado — como um despertador que, em vez de tocar, trabalha e entrega o resultado." tabindex="0">rutina</span> es la pieza más fácil de explicar de todo el curso: una tarea tuya, a una hora fija, que se realiza sin que se lo pidas. Un despertador que, en vez de sonar, trabaja; y lo que recibes en tus manos es el resultado listo.</p>
+<p>En las aplicaciones de IA actuales, busca opciones con nombres como «tareas programadas» o «recordatorios automáticos»: la función todavía varía según la aplicación, y algunas solo la ofrecen en los planes de pago. Si la tuya no la tiene, la clase sigue siendo útil: la orden de trabajo que vas a escribir también funciona como rutina manual de dos minutos.</p>
+<p>La primera rutina del contador Túlio: todos los lunes, a las 7h, la lista de plazos de la semana, ordenada por cliente y con los más urgentes primero. La lee mientras toma café y empieza el día sabiendo dónde empezará el incendio.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Qué merece (y qué no merece) un reloj</h2>
+<p>No toda repetición merece convertirse en rutina. El filtro tiene tres preguntas: ¿ocurre en un día o a una hora previsible? ¿El resultado tiene un formato estable? ¿Ya hiciste bien esa tarea manualmente más de una vez? Tres respuestas afirmativas: prográmala. Cualquier respuesta negativa: espera.</p>
+<p>La tercera pregunta es la que salva. La abogada Renata solo programó el resumen semanal del estado de los procesos después de pedirlo a mano durante tres semanas, ajustando el formato cada vez — cuando lo programó, programó algo que ya había afinado.</p>
+<div class="qerr">
+<p class="qk">Error común</p>
+<p class="qerr-txt"><b>Programar una tarea que nunca salió bien al hacerla manualmente.</b> Sucede porque automatizar parece el atajo para arreglar lo que está mal. El efecto es el contrario: el defecto puntual se convierte en un defecto puntual a las 7h de cada lunes. Cómo evitarlo: corrígelo primero a mano — las rutinas sirven para multiplicar los aciertos, no para ocultar errores.</p>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Ciclo con umbral: avisa solo cuando importa</h2>
+<p>Hay un segundo tipo de tarea automática, más inteligente que el despertador: el <span class="gterm" data-def="Tarefa automática que se repete e confere uma condição a cada volta — só te avisa quando algo mudou ou precisa de decisão. Também chamado de 'loop'." tabindex="0">ciclo con portón</span> (verás el nombre "loop" por ahí). En vez de entregarlo siempre, lo revisa y solo te avisa cuando algo cambia — como la ronda del guardia, que no llama al dueño en cada vuelta, sino solo cuando encuentra una puerta abierta.</p>
+<p>La abogada Renata armó el suyo sobre las publicaciones de los procesos: la revisión se hace todos los días, pero solo recibe un mensaje cuando aparece algo con plazo. El silencio también es información: significa «todo revisado, nada urgente».</p>
+<p>La compuerta es lo que separa la automatización útil de una avalancha de avisos: sin ella, la rutina se convierte en otra bandeja de entrada que limpiar.</p>
+<div class="quiz" data-answer="b">
+<p class="qk">Ponte a prueba</p><p class="q">Tu rutina diaria envía un informe incluso cuando no hay nada nuevo, y dejaste de leerlo. ¿Qué falta?</p>
+<button class="opt" data-k="a">Cambiar la hora del envío a la tarde</button>
+<button class="opt" data-fb="Exato: falta o portão — a condição 'só me avise se houver mudança ou prazo'. Aviso constante vira ruído, e ruído vira aviso ignorado." data-k="b">Una puerta: avisar solo cuando algo cambie</button>
+<button class="opt" data-k="c">Un informe más bonito y más largo</button>
+<p class="qfb"></p>
+</div>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> La orden de trabajo</h2>
+<p>Toda rutina que funciona bien nace de una orden de trabajo de cuatro líneas: el mismo documento que le darías a un empleado de confianza para una tarea recurrente.</p>
+<div class="qsteps">
+<p class="qsk">Las cuatro líneas de la orden de trabajo</p>
+<ol>
+<li><b>Qué</b> — la tarea, de preferencia apuntando a una receta de tu cajón ("aplica la receta recordatorio de plazos").</li>
+<li><b>Cuándo</b> — día y hora exactos ("todos los lunes, 7h"), no "de vez en cuando".</li>
+<li><b>Entrega</b> — dónde y en qué formato aparece el resultado ("lista breve, lo más urgente primero").</li>
+<li><b>Puerta</b> — cuándo despertarme ("siempre" para el despertador; "solo si hay un plazo nuevo" para la ronda).</li>
+</ol>
+</div>
+<p>Observa cómo encajan aquí las clases: la receta (clase 6) indica <em>cómo</em> hacer; la orden de servicio dice <em>cuándo</em> e <em>qué traerme</em>. El contador Túlio escribió la suya en cinco minutos — porque las piezas anteriores ya existían.</p>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="tarefa" data-practice="p7">
+<p class="pk">Practica ahora <span class="pcount">0/4 hecho</span></p>
+<h3 class="ph">Escribe (y cuelga) tu primera orden de trabajo</h3>
+<p class="pgoal">Termina con la orden de trabajo de tu primera rutina escrita en cuatro líneas, programada en la aplicación o guardada y lista — ~15 min.</p>
+<p class="psafe">Una rutina programada se pausa o se borra en el mismo lugar donde se creó: nada se ejecuta a escondidas. Y si tu aplicación todavía no permite programar, la instrucción escrita ya sirve: dos minutos para copiar y pegar por semana, con el mismo resultado.</p>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Elige la repetición más predecible de tu semana y pásala por el filtro de las tres preguntas (¿predecible? ¿formato estable? ¿ya funcionó cuando lo hiciste a mano?). Sigue solo si las tres respuestas son sí.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Escribe las cuatro líneas: qué, cuándo, entrega, paso. Si tienes una receta relacionada en tu cajón, menciónala en la primera línea.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Si tu aplicación tiene tareas programadas: crea la rutina pegando la orden de trabajo y confirma el horario. Si no: guarda la orden junto con el expediente y marca en tu agenda el momento semanal para pegarla.</label></li>
+<li><label><input data-ptask="4" type="checkbox"/> Valida la primera ejecución (programada o manual): ¿la entrega llegó en el formato de la línea 3? Está listo cuando la primera entrega coincida con la instrucción.</label></li>
+</ol>
+<p class="pdone">Tu sistema acaba de trabajar en un horario en el que no le pedías nada. Esa es la frontera que separa a un asistente de un sistema.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O despertador que trabalha: o horário dispara a tarefa, e o que chega até você é o resultado — não o pedido." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<circle cx="52" cy="70" r="34" stroke="var(--accent)" stroke-width="1.5"></circle>
+<path d="M52 70 L52 48 M52 70 L66 78" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="26" y="122">lun · 7h</text>
+<path d="M90 70 h32" stroke="var(--line2)" stroke-width="1.5"></path>
+<path d="M116 64 l8 6 -8 6" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="48" rx="8" stroke="var(--line2)" stroke-width="1.5" width="72" x="132" y="46"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="144" y="66">la tarea se ejecuta</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="144" y="82">sin pedido</text>
+<path d="M168 94 v26 M162 112 l6 8 6 -8" stroke="var(--warm)" stroke-width="1.5"></path>
+<rect height="34" rx="6" stroke="var(--warm)" stroke-width="1.5" width="72" x="132" y="128"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="142" y="149">resultado para ti</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="188">el reloj sale de tu cabeza</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O filtro das três perguntas na entrada do relógio: previsível, estável e já acertada à mão — só com três sins a tarefa passa." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="26" rx="5" stroke="var(--line2)" stroke-width="1.5" width="188" x="16" y="20"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="28" y="37">candidata: repetición de la semana</text>
+<path d="M110 46 v14" stroke="var(--line2)" stroke-width="1.5"></path>
+<rect height="24" rx="5" stroke="var(--accent)" stroke-width="1.2" width="136" x="42" y="64"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="52" y="80">¿1 día/hora predecible?</text>
+<rect height="24" rx="5" stroke="var(--accent)" stroke-width="1.2" width="136" x="42" y="96"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="52" y="112">¿2 formato estable?</text>
+<rect height="24" rx="5" stroke="var(--accent)" stroke-width="1.2" width="136" x="42" y="128"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="52" y="144">¿3 ya los corregiste a mano?</text>
+<path d="M110 152 v16 M104 162 l6 8 6 -8" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="76" y="192">3 síes → reloj</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A ronda com portão: a conferência gira todo dia, mas a seta só atravessa até você quando a condição é verdadeira." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<circle cx="76" cy="90" r="44" stroke="var(--accent)" stroke-width="1.5"></circle>
+<path d="M116 74 l6 10 -12 1" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="52" y="86">comprueba</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="52" y="102">todos los días</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="120" x2="150" y1="90" y2="90"></line>
+<rect height="36" rx="2" stroke="var(--warm)" stroke-width="1.5" width="10" x="150" y="72"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="136" y="60">puerta</text>
+<path d="M160 90 h28" stroke="var(--warm)" stroke-width="1.5"></path>
+<path d="M182 84 l8 6 -8 6" stroke="var(--warm)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="164" y="116">solo si cambió</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="170 ">silencio = todo revisado</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="16" y="188">aviso = decisión necesaria</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A ordem de serviço de quatro linhas — e a receita da aula 6 encaixada na primeira: o como já existe, aqui entra o quando." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="160" rx="8" stroke="var(--line2)" stroke-width="1.5" width="164" x="28" y="20"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="40" y="46">QUÉ</text>
+<rect height="20" rx="4" stroke="var(--accent)" stroke-width="1.2" width="88" x="92" y="32"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="8.5" x="98" y="46">→ receta del cajón</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="40" y="84">CUÁNDO</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="180" y1="80" y2="80"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="40" y="122">ENTREGA</text>
+<line stroke="var(--line2)" stroke-width="1.5" x1="92" x2="172" y1="118" y2="118"></line>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="40" y="160">COMPUERTA</text>
+<line stroke="var(--warm)" stroke-width="1.5" x1="92" x2="176" y1="156" y2="156"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="28" y="196">4 líneas: el mismo doc para un empleado</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>Una rutina es un despertador que trabaja: la hora programada activa la tarea y tú recibes el resultado.</li>
+<li>El filtro de las tres preguntas decide qué merece un reloj — y la tercera (¿ya lo comprobaste a mano?) es la que evita multiplicar errores.</li>
+<li>Un Ciclo con umbral siempre verifica y rara vez avisa: el silencio se convierte en información, el aviso en una decisión.</li>
+<li>La orden de trabajo reúne las piezas del curso: la receta responde al «qué», el reloj al «cuándo» y la puerta al «cuándo despertarme».</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de sacar de tu cabeza el primer reloj: la tarea ya tiene responsable, horario y entrega.</p>
+<p class="na-action">En los próximos 15 minutos: enumera las alertas automáticas que ya recibes (del banco, del celular, del correo) y marca cuáles ignoras. Cada una es una puerta que faltó y un error que no debes repetir en tu sistema.</p>
+<p class="na-hook">En la próxima clase, el conocimiento del sistema tendrá un hogar: la carpeta que organiza lo que sabe y el panel de una página que abre tu mañana.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-6">← clase 6</a><a href="#aula-8">clase 8 →</a></nav>
+<footer>Lección 7 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-7" type="application/json">
+[
+  {"front":"A rotina das 7h entregou lixo três segundas seguidas. Qual pergunta do filtro foi pulada na criação dela?","back":"A terceira: a tarefa nunca tinha saído certa manualmente — agendou-se um erro, e o relógio o multiplicou."},
+  {"front":"Qual a diferença entre o despertador e a ronda com portão?","back":"O despertador entrega sempre, no horário. A ronda confere sempre, mas só avisa quando a condição é verdadeira — o resto é silêncio útil."},
+  {"front":"Decisão: seu aplicativo não tem tarefas agendadas. Você abandona a aula ou adapta?","back":"Adapta: a ordem de serviço escrita vira rotina manual de dois minutos (colar no horário marcado) — e fica pronta para o dia em que o recurso chegar."},
+  {"front":"Aplicação: você quer ser avisado de publicações de processos, mas sem mensagem diária inútil. Escreva a linha do portão.","back":"Algo como: 'só me avise se houver publicação nova com prazo; sem novidade, não mande nada'."}
+]
+</script>
+<!--
+COMPLETUDE aula-7 | tipo=FERRAMENTA | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="18min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Túlio s1, Renata s2, Renata s3, Túlio s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="tarefa"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~15 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-7"> presente (4 cartões: diagnóstico, contraste, decisão, aplicação)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/aplicação; operação difere do recap)
+  [N/A] teste-se-FUND     aula é FERRAMENTA (obrigação não se aplica); teste-se opcional presente (1 pergunta, step 3)
+-->
+</section>
+<!-- ===== AULA 8 ===== -->
+<section class="view" data-aula="8" data-tempo="18min" id="v-aula-8">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 8</p>
+<h1>Wiki y<br/><em>panel diario</em></h1>
+<p class="promise">Al terminar esta lección montarás la primera versión de la carpeta de conocimiento de tu asistente — con dirección y etiquetas — y definirás el panel de una página que te entrega cada mañana.</p>
+<p class="why">Tu sistema ya tiene expediente, recetas y una orden de trabajo, pero están dispersos. El conocimiento disperso pasa factura: olvidas dónde está, lo duplicas y dejas que quede obsoleto. Además, falta el hábito que hace que todo eso aparezca en tu día sin esfuerzo: un panel que te recibe al empezar la mañana. Esta lección organiza todo e instala el ritual.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<rect height="166" rx="6" stroke="var(--line2)" stroke-width="2" width="110" x="36" y="44"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="36" x2="146" y1="99" y2="99"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="36" x2="146" y1="154" y2="154"></line>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.5" width="30" x="76" y="64"></rect>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.5" width="30" x="76" y="119"></rect>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.5" width="30" x="76" y="174"></rect>
+<rect height="120" rx="6" stroke="var(--warm)" stroke-width="2" width="92" x="178" y="44"></rect>
+<line stroke="var(--warm)" stroke-width="1.5" x1="190" x2="258" y1="70" y2="70"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="190" x2="248" y1="98" y2="98"></line>
+<line stroke="var(--warm)" stroke-width="1.5" x1="190" x2="254" y1="126" y2="126"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="36" y="30">el armario etiquetado y el tablón de anuncios</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="178" y="188">1 página, cada mañana</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> La wiki: un armario con tres cajones</h2>
+<p>Todo lo que sabe tu asistente merece estar en un solo lugar: una <span class="gterm" data-def="A pasta de conhecimento do seu sistema: o lugar único onde vivem dossiê, receitas, ordens de serviço e fatos do trabalho, organizados por etiqueta." tabindex="0">wiki</span>, que aquí es solo un nombre corto para "la carpeta de conocimiento". Nada de tecnología nueva: puede ser una carpeta de documentos en el servicio que ya usas.</p>
+<p>Bastan tres cajones: <b>quién soy</b> (el expediente de la clase 4), <b>cómo lo hago</b> (las recetas y órdenes de servicio) y <b>lo que sé</b> (datos que cambian lentamente: lista de clientes importantes, plazos fijos del año, modelos de documentos).</p>
+<p>La abogada Renata armó la suya en diez minutos, organizando lo que ya existía. El beneficio se notó con la primera duda: en vez de buscar en tres lugares, abrió una carpeta.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> El panel: tu mañana en una página</h2>
+<p>El panel es la entrega más visible de todo el sistema: una página, cada mañana, con lo que exige el día: agenda, plazos, pendientes y una línea de prioridad. Piensa en el tablero de anuncios de la entrada de un consultorio: quien pasa lo lee en treinta segundos y sabe qué importa.</p>
+<p>El contenido cambia según la profesión; la forma, no: tres bloques breves y una línea final de prioridad, siempre en el mismo orden y siempre en una página.</p>
+<div class="qapply">
+<p class="qak">El mismo panel, dos trabajos</p>
+<ul>
+<li><b>Abogada (Renata):</b> audiencias y reuniones del día · publicaciones con plazo · clientes que esperan respuesta · "si solo hay que hacer una cosa: presentar el escrito X antes de las 16h".</li>
+<li><b>Contador (Túlio):</b> vencimientos de impuestos de la semana · documentos que faltan recibir de clientes · declaraciones en fila · "si solo puedes hacer una cosa: pedir hoy los documentos de la empresa Y".</li>
+</ul>
+</div>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> El ritual de los diez minutos</h2>
+<p>Un sistema sin hábitos se oxida. El ritual que mantiene vivo el tuyo cabe en diez minutos al día, con dos toques: por la mañana, leer el panel y decidir la prioridad (cinco minutos); al final del día, una línea de actualización en la wiki: qué cambió, qué se agregó y qué ya no sirve (cinco minutos).</p>
+<p>Un caso de la primera semana: el contador Túlio se saltó el registro de la tarde durante tres días. El jueves, el panel amaneció con un documento pendiente que ya había llegado, y casi le cobró al cliente equivocado. La línea de la tarde que no escribió le costó exactamente la vergüenza que esa línea debía evitar. Desde entonces, la escribe antes de apagar la computadora.</p>
+<p>La regla que salva el ritual: si un día falla, no recuperes lo atrasado — escribe solo la línea de hoy y sigue. Un ritual que exige ponerse al día muere en la primera semana ocupada.</p>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="step" data-fig="4" data-kind="fundamento">
+<h2><span class="n">04</span> Mantenimiento ligero: el sistema sencillo</h2>
+<p>Las wikis y los paneles tienen un enemigo natural: la acumulación. Cada semana se suma un poco: un dato que quedó desactualizado, un bloque del panel que nadie lee, y en dos meses la página única se convirtió en tres. La defensa es hacer una revisión semanal de cinco minutos, siempre igual.</p>
+<div class="qsteps">
+<p class="qsk">La revisión semanal (5 minutos, viernes o domingo)</p>
+<ol>
+<li><b>Panel:</b> ¿Algún bloque pasó la semana sin que nadie lo leyera? Elimínalo o únelo a otro: la página sigue siendo una sola.</li>
+<li><b>Wiki:</b> ¿Algún dato quedó desactualizado (un cliente que se fue, un plazo que cambió)? Actualízalo o bórralo.</li>
+<li><b>Recetas:</b> ¿Alguna se salió del patrón durante el uso? Ajusta el campo "cómo queda bien".</li>
+<li><b>Anota una línea</b> de lo que cambió — es la memoria del mantenimiento.</li>
+</ol>
+</div>
+<p>Este fue el análisis que evitó que el panel de la abogada Renata se convirtiera en un informe: durante el primer mes eliminó dos bloques que parecían útiles en teoría y que nunca se leyeron de verdad.</p>
+<div class="mobfig" data-mobfig="4"></div>
+<button class="readbtn" data-read="s4">marcar como leído</button>
+</section>
+<section class="practice" data-mode="prompt" data-practice="p8">
+<p class="pk">Practica ahora <span class="pcount">0/4 hecho</span></p>
+<h3 class="ph">Crea tu panel matutino</h3>
+<p class="pgoal">Termina con la wiki de tres cajones armada y el primer panel real entregado por el asistente — ~12 min.</p>
+<p class="psafe">Solo creas una carpeta y conversas con el chat: no se envía nada a nadie ni se modifica ninguna herramienta. Que el panel salga mal en el primer intento es normal: ajustas la solicitud, no abandonas la página.</p>
+<div class="pcodewrap"><button class="pcopy" type="button">copiar</button><pre class="pcode">Monte meu painel desta manhã, em uma página, três blocos e uma linha final:
+1) AGENDA DE HOJE: &lt;cole seus compromissos — ou deixe que o conector de
+   agenda da aula 5 preencha&gt;
+2) PRAZOS E VENCIMENTOS: &lt;cole sua lista da semana&gt;
+3) PENDÊNCIAS: &lt;as três coisas paradas esperando alguém&gt;
+Termine com uma linha: "se você só fizer uma coisa hoje, faça &lt;...&gt;",
+escolhida pelo que tem prazo mais duro.
+Formato: blocos curtos, mais urgente primeiro, sem parágrafos longos.</pre></div>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Crea la carpeta de la wiki con los tres cajones (quién soy · cómo lo hago · qué sé) y mueve allí el expediente, las recetas y la orden de trabajo.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Completa la solicitud de arriba con tus datos reales de hoy y pégala en el chat. Lo que deberías ver: una página con tres bloques y la línea de prioridad.</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Ajusta una vez: quita del resultado lo que no leerías mañana y vuelve a pedirlo. Guarda la versión buena de la solicitud en el cajón «cómo lo hago» — es la receta del panel.</label></li>
+<li><label><input data-ptask="4" type="checkbox"/> Conéctalo con la lección 7: agrega la solicitud del panel a tu orden de trabajo (o crea una segunda, con «cuándo: todas las mañanas»). Está listo cuando el panel tenga una hora de entrega.</label></li>
+</ol>
+<p class="pdone">Tu mañana acaba de ganar una primera página, escrita por el sistema en tu formato, antes de que la pidas.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O armário de três gavetas: quem sou, como faço, o que sei — tudo que o sistema conhece tem uma etiqueta e um só endereço." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="160" rx="8" stroke="var(--line2)" stroke-width="1.5" width="128" x="46" y="20"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="46" x2="174" y1="73" y2="73"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="46" x2="174" y1="126" y2="126"></line>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.2" width="32" x="94" y="40"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="58" y="62">quién soy</text>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.2" width="32" x="94" y="93"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="58" y="115">cómo lo hago</text>
+<rect height="10" rx="2" stroke="var(--accent)" stroke-width="1.2" width="32" x="94" y="146"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="58" y="168">lo que sé</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="46" y="196">una sola dirección; cero búsquedas del tesoro</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A forma fixa do painel: três blocos e uma linha de prioridade, sempre em uma página — o conteúdo muda, a moldura não." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="168" rx="8" stroke="var(--warm)" stroke-width="1.5" width="140" x="40" y="16"></rect>
+<rect height="34" rx="5" stroke="var(--line2)" stroke-width="1.2" width="116" x="52" y="30"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="60" y="51">1 agenda</text>
+<rect height="34" rx="5" stroke="var(--line2)" stroke-width="1.2" width="116" x="52" y="72"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="60" y="93">2 plazos</text>
+<rect height="34" rx="5" stroke="var(--line2)" stroke-width="1.2" width="116" x="52" y="114"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="60" y="135">3 pendientes</text>
+<line stroke="var(--accent)" stroke-width="1.5" x1="52" x2="168" y1="162" y2="162"></line>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="8.5" x="60" y="174">si solo una cosa: ...</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="40" y="198">30 segundos de lectura, siempre</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; Os dois toques do dia: painel lido de manhã, uma linha escrita à tarde — e a seta do que acontece quando a linha falta." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--line2)" stroke-width="1.5" x1="20" x2="200" y1="90" y2="90"></line>
+<circle cx="54" cy="90" r="7" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="30" y="68">mañana: leer</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="30" y="118">5 min</text>
+<circle cx="160" cy="90" r="7" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="128" y="68">tarde: 1 línea</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="140" y="118">5 min</text>
+<path d="M160 100 v28" stroke="var(--warm)" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="70" y="146">línea omitida → panel mañana</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="180">¿fallaste un día? escribe solo la de hoy</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; A varredura semanal como balança: o que a semana depositou de peso morto sai, e a página volta a ser uma." data-fig="4">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--line2)" stroke-width="1.5" x1="110" x2="110" y1="36" y2="150"></line>
+<line stroke="var(--line2)" stroke-width="1.5" x1="40" x2="180" y1="60" y2="60"></line>
+<path d="M40 60 l-8 26 h16 z" stroke="var(--accent)" stroke-width="1.2"></path>
+<path d="M180 60 l-8 26 h16 z" stroke="var(--warm)" stroke-width="1.2"></path>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="18" y="112">vigente: se queda</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="146" y="112">muerto: se va</text>
+<rect height="14" rx="3" stroke="var(--line2)" stroke-width="1.5" width="68" x="76" y="150"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="42" y="188">5 min por semana, página única</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>La wiki es la dirección única de lo que sabe el sistema: tres cajones lo resuelven — quién soy, cómo lo hago, qué sé.</li>
+<li>El panel es la mañana en una página: tres bloques y una línea de prioridad, en el mismo marco todos los días.</li>
+<li>Diez minutos en dos momentos mantienen todo activo; la línea de la tarde es lo que impide que el panel mienta mañana.</li>
+<li>La revisión semanal elimina el peso muerto antes de que la página única se convierta en tres.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de darle un hogar al conocimiento del sistema y una primera página a tu mañana.</p>
+<p class="na-action">En los próximos 15 minutos: escribe en la wiki la primera línea de esta tarde: qué cambió, qué se incorporó, qué dejó de servir. Este es el gesto que inaugura el ritual.</p>
+<p class="na-hook">En la última clase, mirarás todo el sistema desde arriba y escribirás el plan para los próximos 30 días: qué activar cada semana, sin sobrecargar lo que ya funciona.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-7">← clase 7</a><a href="#aula-9">clase 9 →</a></nav>
+<footer>Lección 8 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-8" type="application/json">
+[
+  {"front":"O painel de hoje listou como pendente algo resolvido ontem. Onde nasceu o erro?","back":"Na linha da tarde que não foi escrita: o painel só é confiável se a wiki recebeu a atualização do dia anterior."},
+  {"front":"Decisão: um bloco do painel parece importante, mas você não o lê há duas semanas. O que a varredura manda fazer?","back":"Cortar ou juntar — utilidade se prova por leitura real, não por parecer importante; a página tem que continuar sendo uma."},
+  {"front":"Aplicação: sua wiki tem 9 documentos soltos e você perde tempo procurando. Como as três gavetas resolvem?","back":"Cada documento entra numa etiqueta: dossiê em 'quem sou'; receitas e ordens de serviço em 'como faço'; fatos e modelos em 'o que sei'."}
+]
+</script>
+<!--
+COMPLETUDE aula-8 | tipo=PRATICA | steps=4
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="18min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (4/4: Renata s1, Renata+Túlio s2/qapply, Túlio s3/mini-caso, Renata s4)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (4/4, data-fig 1–4)
+  [OK] practice           .practice[data-mode="prompt"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~12 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-8"> presente (3 cartões de integração: diagnóstico, decisão, aplicação)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% pergunta/decisão/aplicação; operação difere do recap)
+  [N/A] teste-se-FUND     aula é PRÁTICA/INTEGRAÇÃO (obrigação não se aplica); sem teste-se opcional
+-->
+</section>
+<!-- ===== AULA 9 ===== -->
+<section class="view" data-aula="9" data-tempo="15min" id="v-aula-9">
+<header class="hero"><div class="hero-inner">
+<div>
+<p class="kicker">Ruta única · Lección 9</p>
+<h1>Tu plan de<br/><em>30 días</em></h1>
+<p class="promise">Al terminar esta lección tendrás escrito y guardado en la wiki el plan para los próximos 30 días de tu AI OS — un cambio por semana, cada uno conectado con una pieza que ya sabes montar.</p>
+<p class="why">El mayor riesgo de un sistema recién armado no es que se rompa: es abandonarlo en la tercera semana, cuando pasa la novedad. El antídoto es un plan pequeño y fechado: cuatro semanas, cuatro cambios, ninguno de más de quince minutos al día. En esta lección terminas el curso escribiendo ese plan conmigo.</p>
+<p class="cue"><span class="arw">↓</span> role para estudiar</p>
+</div>
+<div class="herofig"><svg aria-hidden="true" fill="none" viewbox="0 0 300 240">
+<rect height="168" rx="8" stroke="var(--line2)" stroke-width="2" width="204" x="48" y="36"></rect>
+<line stroke="var(--line2)" stroke-width="1.5" x1="48" x2="252" y1="70" y2="70"></line>
+<circle cx="66" cy="53" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<circle cx="82" cy="53" r="4" stroke="var(--warm)" stroke-width="1.5"></circle>
+<line stroke="var(--line2)" stroke-width="1.2" x1="99" x2="99" y1="70" y2="204"></line>
+<line stroke="var(--line2)" stroke-width="1.2" x1="150" x2="150" y1="70" y2="204"></line>
+<line stroke="var(--line2)" stroke-width="1.2" x1="201" x2="201" y1="70" y2="204"></line>
+<rect height="20" rx="3" stroke="var(--accent)" stroke-width="2" width="35" x="56" y="80"></rect>
+<path d="M62 90 l5 5 9 -10" stroke="var(--accent)" stroke-width="2"></path>
+<rect height="20" rx="3" stroke="var(--line2)" stroke-width="1.5" width="35" x="107" y="80"></rect>
+<rect height="20" rx="3" stroke="var(--line2)" stroke-width="1.5" width="35" x="158" y="80"></rect>
+<rect height="20" rx="3" stroke="var(--line2)" stroke-width="1.5" width="35" x="209" y="80"></rect>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="56" y="128">sem1</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="107" y="128">sem2</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="158" y="128">sem3</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="209" y="128">sem4</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="11" x="48" y="226">el calendario de pared: una marca por semana</text>
+</svg></div>
+</div></header>
+<div class="layout">
+<div class="col">
+<section class="step" data-fig="1" data-kind="fundamento">
+<h2><span class="n">01</span> Mira lo que armaste</h2>
+<p>Haz el inventario antes de planificar: un expediente que te presenta en cada conversación (Memoria). Al menos una puerta abierta en el nivel de ver (Manos). Una receta con nombre en el cajón y una orden de servicio en el reloj (Capacidad y Ciclo). Una wiki con tres cajones y un panel matutino. El chat aislado de la clase 1 se convirtió en un sistema con nombre y dirección.</p>
+<p>La abogada Renata hizo este inventario y notó lo más importante: ninguna pieza exigió talento nuevo — solo una decisión y veinte minutos. Lo que parecía asunto de programadores era, al final, organización por escrito.</p>
+<p>El inventario también muestra con amabilidad los vacíos: lo que te saltaste en las prácticas es un candidato natural para la semana 1 del plan.</p>
+<div class="mobfig" data-mobfig="1"></div>
+<button class="readbtn" data-read="s1">marcar como leído</button>
+</section>
+<section class="step" data-fig="2" data-kind="fundamento">
+<h2><span class="n">02</span> Evoluciona sin inflar</h2>
+<p>Los sistemas nuevos mueren de dos maneras: por abandono o por obesidad. La segunda es más engañosa: cada semana una conexión nueva, tres recetas especulativas, cinco rutinas, y en un mes administras el sistema en vez de trabajar. La vacuna es una regla de ritmo: <b>un cambio por semana</b>, elegida según el ciclo observar → ajustar → ampliar.</p>
+<p>Observar: ¿qué te molestó al usarlo esta semana? Ajustar: corrige eso antes de crear cualquier cosa. Ampliar: solo si no hubo nada que reparar, conecta una pieza nueva: la segunda puerta, la segunda receta.</p>
+<p>El contador Túlio vivió la advertencia en carne propia: en la segunda semana, entusiasmado, creó cuatro rutinas de golpe. El viernes, tres enviaban alertas inútiles y él ya no leía ninguna. Eliminó todas menos la de plazos, volvió al ritmo de una por semana y, hasta hoy, la de plazos por sí sola justifica todo el sistema.</p>
+<div class="mobfig" data-mobfig="2"></div>
+<button class="readbtn" data-read="s2">marcar como leído</button>
+</section>
+<section class="step" data-fig="3" data-kind="fundamento">
+<h2><span class="n">03</span> Las cuatro semanas, por escrito</h2>
+<p>El plan de 30 días no inventa nada nuevo: distribuye en el calendario lo que el curso ya preparó, de lo más sencillo a lo más delicado.</p>
+<div class="qsteps">
+<p class="qsk">El esquema del plan (adáptalo a tu inventario)</p>
+<ol>
+<li><b>Semana 1 — memoria completa:</b> dossier revisado con lo que enseñaron las prácticas; ritual de diez minutos en marcha todos los días hábiles.</li>
+<li><b>Semana 2 — alcance consciente:</b> la primera puerta en uso real (o la segunda, si la primera ya está consolidada); verificar una respuesta con la fuente cada día.</li>
+<li><b>Semana 3 — trabajo guardado:</b> la segunda receta nace de la repetición que aparezca; la rutina existente pasa por la primera revisión del portón.</li>
+<li><b>Semana 4 — el sistema se revisa a sí mismo:</b> revisión completa de la wiki y del panel; escribir tres líneas de balance: qué se quedó, qué salió, qué merece la semana 5.</li>
+</ol>
+</div>
+<p>La abogada Renata pegó su plan en el primer cajón de la wiki, con una fecha en cada línea. No por burocracia, sino porque un plan sin fecha es un deseo, y un deseo no sobrevive a una semana de audiencias.</p>
+<div class="mobfig" data-mobfig="3"></div>
+<button class="readbtn" data-read="s3">marcar como leído</button>
+</section>
+<section class="practice" data-mode="tarefa" data-practice="p9">
+<p class="pk">Practica ahora <span class="pcount">0/3 hecho</span></p>
+<h3 class="ph">Escribe tu plan de 30 días</h3>
+<p class="pgoal">Termina con las cuatro semanas escritas, fechadas y guardadas en la wiki — ~10 min.</p>
+<p class="psafe">Es un documento tuyo, en tu carpeta: no se contrata, agenda ni envía nada. Si la semana 2 demuestra que el plan no funciona, se reescribe en cinco minutos: está para servirte, no al revés.</p>
+<ol class="psteps">
+<li><label><input data-ptask="1" type="checkbox"/> Copia el esquema de las cuatro semanas y ajusta cada línea a tu inventario: lo que te saltaste del curso va en la semana 1.</label></li>
+<li><label><input data-ptask="2" type="checkbox"/> Pon una fecha de inicio a cada semana y elige el día fijo para revisar todo (viernes o domingo).</label></li>
+<li><label><input data-ptask="3" type="checkbox"/> Guarda el plan en el cajón "quién soy" de la wiki, junto con el expediente. Está listo cuando tenga una dirección y fechas, y la primera fecha sea esta semana.</label></li>
+</ol>
+<p class="pdone">El curso termina aquí; el sistema, no. Te llevas el mapa del primer mes en la mano y el método para todos los meses siguientes.</p>
+</section>
+</div>
+<aside class="rail"><div class="railsticky">
+<div class="figstage">
+<div class="fig on" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O inventário do sistema: as peças montadas acesas, os buracos das práticas puladas marcados — candidatos à semana 1." data-fig="1">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<rect height="44" rx="8" stroke="var(--accent)" stroke-width="1.5" width="68" x="76" y="76"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="10" x="88" y="102">asistente</text>
+<rect height="26" rx="5" stroke="var(--accent)" stroke-width="1.5" width="72" x="20" y="18"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="30" y="35">dossier listo</text>
+<rect height="26" rx="5" stroke="var(--accent)" stroke-width="1.5" width="72" x="128" y="18"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="138" y="35">1 puerta ok</text>
+<rect height="26" rx="5" stroke="var(--accent)" stroke-width="1.5" width="72" x="20" y="152"></rect>
+<text fill="var(--accent)" font-family="var(--mono)" font-size="9" x="30" y="169">receta correcta</text>
+<rect height="26" rx="5" stroke="var(--warm)" stroke-dasharray="4 4" stroke-width="1.5" width="72" x="128" y="152"></rect>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="138" y="169">rutina: falta</text>
+<line stroke="var(--line2)" stroke-width="1.2" x1="56" x2="86" y1="44" y2="76"></line>
+<line stroke="var(--line2)" stroke-width="1.2" x1="164" x2="134" y1="44" y2="76"></line>
+<line stroke="var(--line2)" stroke-width="1.2" x1="56" x2="86" y1="152" y2="120"></line>
+<line stroke="var(--line2)" stroke-width="1.2" x1="164" x2="134" y1="152" y2="120"></line>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="20" y="196">línea discontinua = semana 1 del plan</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O ciclo de ritmo: observar, ajustar e só então ampliar — a espiral cresce uma volta por semana, nunca quatro." data-fig="2">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<path d="M110 100 a16 16 0 1 1 16 -16" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M110 100 a34 34 0 1 1 34 -34" opacity=".7" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M110 100 a52 52 0 1 1 52 -52" opacity=".4" stroke="var(--accent)" stroke-width="1.5"></path>
+<path d="M158 44 l8 6 -11 4" stroke="var(--accent)" stroke-width="1.5"></path>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="34" y="150">observar → ajustar → ampliar</text>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="10" x="34" y="176">1 vuelta por semana</text>
+</svg>
+</div>
+<div class="fig" data-cap="&lt;b&gt;Fig.&lt;/b&gt; O mês no papel: quatro semanas, quatro mudanças com data — do mais barato (memória) ao mais delicado (balanço)." data-fig="3">
+<svg aria-hidden="true" fill="none" viewbox="0 0 220 200">
+<line stroke="var(--line2)" stroke-width="1.5" x1="30" x2="30" y1="40" y2="160"></line>
+<circle cx="30" cy="52" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="44" y="56">s1 memoria redonda</text>
+<circle cx="30" cy="88" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="44" y="92">s2 alcance consciente</text>
+<circle cx="30" cy="124" r="5" stroke="var(--accent)" stroke-width="1.5"></circle>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="9" x="44" y="128">s3 trabajo guardado</text>
+<circle cx="30" cy="160" r="5" stroke="var(--warm)" stroke-width="1.5"></circle>
+<text fill="var(--warm)" font-family="var(--mono)" font-size="9" x="44" y="164">s4 el sistema se observa</text>
+<text fill="var(--muted)" font-family="var(--mono)" font-size="10" x="30" y="190">un plan sin fecha es un deseo</text>
+</svg>
+</div>
+</div>
+<p class="railcap"></p>
+<div class="steps-ind"></div>
+<p class="sidenote">Resalta cualquier fragmento para convertirlo en una tarjeta de repaso.</p>
+</div></aside>
+</div>
+<div class="fecho-wrap">
+<div class="recap-autor">
+<p class="rak">Resumen</p>
+<ul>
+<li>El inventario cierra el círculo: las cuatro partes de la lección 1 ahora existen, armadas por escrito, sin necesidad de nuevas habilidades.</li>
+<li>Un sistema muere por abandono o por exceso; cambiar una cosa por semana evita ambas cosas.</li>
+<li>Observar y ajustar vienen antes que ampliar: reparar tiene prioridad sobre la novedad.</li>
+<li>El plan de 30 días distribuye lo que ya existe en cuatro semanas fechadas, guardadas donde vive el sistema.</li>
+</ul>
+</div>
+<div class="next-action">
+<p class="nak">Tu siguiente paso</p>
+<p class="na-win">Acabas de terminar el montaje: un asistente con memoria, alcance, receta, reloj y panel, y un plan fechado para el primer mes.</p>
+<p class="na-action">En los próximos 15 minutos: ejecuta la primera línea de la semana 1 de tu plan. No mañana: ahora, mientras tienes el sistema fresco en la cabeza.</p>
+<p class="na-hook">Dentro de 30 días, las tres líneas del balance de la semana 4 te dirán qué merece tu sistema a continuación: la segunda puerta, la rutina con barrera o simplemente más silencio bien organizado.</p>
+</div>
+</div>
+<nav class="lnav"><a href="#aula-8">← clase 8</a><a href="#trilha">concluir →</a></nav>
+<footer>Lección 9 · Construye tu AI OS · INEMA.CLUB PRO</footer>
+<script id="cards-9" type="application/json">
+[
+  {"front":"Semana 2: duas rotinas novas te pareceram ótimas ideias, mas a receita da semana passada saiu do padrão. O que o ritmo manda fazer?","back":"Ajustar antes de ampliar: consertar a receita é a mudança da semana; as rotinas novas esperam a próxima volta."},
+  {"front":"Diagnóstico: um mês depois, você gasta mais tempo cuidando do sistema do que ele te devolve. O que aconteceu?","back":"Inchaço — cresceu mais de uma mudança por semana. A saída é a varredura: cortar o que não é lido nem usado até sobrar o que paga o próprio custo."},
+  {"front":"Aplicação: como você decide o que entra na semana 1 do SEU plano?","back":"Pelo inventário: a prática que você pulou (ou a peça mais vazia da vistoria da aula 2) entra primeiro — é o buraco mais barato de fechar."}
+]
+</script>
+<!--
+COMPLETUDE aula-9 | tipo=PRATICA | steps=3
+  [OK] promise            .promise no cold-open (1)
+  [OK] why                .why após a promessa (1)
+  [OK] tempo              data-tempo="15min" no view + render do motor no cold-open (1)
+  [OK] exemplo-profissao  exemplo aplicado em 100% dos steps (3/3: Renata s1, Túlio s2/mini-caso, Renata s3)
+  [OK] apoio-visual       figura conceitual legendada em 100% dos steps (3/3, data-fig 1–3)
+  [OK] practice           .practice[data-mode="tarefa"] (exatamente 1)
+  [OK] psafe              .psafe dentro da prática (1)
+  [OK] pgoal-tempo        .pgoal com "~10 min" (1)
+  [OK] recap-autor        .recap-autor no fecho (1)
+  [OK] next-action        .next-action no fecho (1)
+  [OK] cards              <script id="cards-9"> presente (3 cartões de integração: decisão, diagnóstico, aplicação)
+  [OK] anti-duplicacao    §11.3 — 3 testes passam (sem substring ≥6 palavras; frentes 100% decisão/diagnóstico/aplicação; operação difere do recap)
+  [N/A] teste-se-FUND     aula é PRÁTICA/INTEGRAÇÃO (obrigação não se aplica); sem teste-se opcional
+-->
+</section>
+<script src="../assets/curso.js"></script>
+</body>
+</html>
